@@ -1,0 +1,73 @@
+﻿@model Seating.Models.Lunch
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Create</title>
+</head>
+<body>
+
+<h4>Lunch</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="TimeEntered" class="control-label"></label>
+                <input asp-for="TimeEntered" class="form-control" />
+                <span asp-validation-for="TimeEntered" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TimeCleared" class="control-label"></label>
+                <input asp-for="TimeCleared" class="form-control" />
+                <span asp-validation-for="TimeCleared" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EmpSent" class="control-label"></label>
+                <input asp-for="EmpSent" class="form-control" />
+                <span asp-validation-for="EmpSent" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="LunchTime" class="control-label"></label>
+                <input asp-for="LunchTime" class="form-control" />
+                <span asp-validation-for="LunchTime" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EmployeeId" class="control-label"></label>
+                <select asp-for="EmployeeId" class ="form-control" asp-items="ViewBag.EmployeeId"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="ReasonId" class="control-label"></label>
+                <select asp-for="ReasonId" class ="form-control" asp-items="ViewBag.ReasonId"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="EmpPosition" class="control-label"></label>
+                <select asp-for="EmpPosition" class ="form-control" asp-items="ViewBag.EmpPosition"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="RlfPosition" class="control-label"></label>
+                <select asp-for="RlfPosition" class ="form-control" asp-items="ViewBag.RlfPosition"></select>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+</body>
+</html>

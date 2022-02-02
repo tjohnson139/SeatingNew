@@ -1,0 +1,176 @@
+﻿@model Seating.ViewModels.ListsVM
+
+<div class="d-inline-block bg-transparent" style="width:53rem">
+    <div class="card border-0 d-inline-block mr-3" style="width: 15rem; height:fit-content">
+        @*Dths*@
+        <div class="card-header text-center font-weight-bolder">
+            DTH
+        </div>
+        <table class="table table-bordered">
+            <tbody>
+                @foreach (var item in Model.Dths)
+                {
+                    @*////EMPLOYEE SENT////*@
+                    @if (item.EmpSent == true)
+                    {
+                        <tr class="table-success">
+                            <td class="w-75 h-25 p-0" style="font-size:large">@item.Employee.DisplayName-@item.Employee.DispatchNumber</td>
+                            <td class="h-25 p-0" style="font-size:large">@item.EmpPositionNavigation.PositionName</td>
+                            <td class="h-25 justify-content-center p-0 pl-1">
+                                <input type="checkbox" value="" id="flexCheckChecked" checked>
+                            </td>
+                        </tr>
+                    }
+                    @*////EMPLOYEE NOT SENT *****BEFORE***** ONE MINUTE////*@
+                    else if (item.EmpSent != true && item.TimeEntered.AddMinutes(1) > DateTime.Now)
+                    {
+                        <tr class="flashTime">
+                            <td class="w-75 h-25 p-0" style="font-size:large">@item.Employee.DisplayName-@item.Employee.DispatchNumber</td>
+                            <td class="h-25 p-0" style="font-size:large">@item.EmpPositionNavigation.PositionName</td>
+                            <td class="h-25 justify-content-center p-0 pl-1">
+                                <input type="checkbox" value="" id="flexCheckChecked">
+                        </tr>
+                    }
+                    @*////EMPLOYEE NOT SENT AFTER ONE MINUTE////*@
+                    else
+                    {
+                        <tr>
+                            <td class="w-75 h-25 p-0" style="font-size:large">@item.Employee.DisplayName-@item.Employee.DispatchNumber</td>
+                            <td class="h-25 p-0" style="font-size:large">@item.EmpPositionNavigation.PositionName</td>
+                            <td class="h-25 justify-content-center p-0 pl-1">
+                                <input type="checkbox" value="" id="flexCheckChecked">
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+        <div>
+            @await Html.PartialAsync("../Shared/_BrkDthDropdowns")
+        </div>
+    </div>
+
+    <div class="card border-0 d-inline-block mr-3 align-top" style="width: 15rem; height:fit-content">
+        @*Breaks*@
+        <div class="card-header text-center font-weight-bolder">
+            Break
+        </div>
+        <table class="table table-bordered">
+            <tbody>
+                @foreach (var item in Model.Breaks)
+                {
+                    @*////EMPLOYEE SENT////*@
+                    @if (item.EmpSent == true)
+                    {
+                        <tr class="table-success">
+                            <td class="w-75 h-25 p-0" style="font-size:large">@item.Employee.DisplayName-@item.Employee.DispatchNumber</td>
+                            <td class="h-25 p-0" style="font-size:large">@item.EmpPositionNavigation.PositionName</td>
+                            <td class="h-25 justify-content-center p-0 pl-1">
+                                <input type="checkbox" value="" id="flexCheckChecked" checked>
+                            </td>
+                        </tr>
+                    }
+                    @*////EMPLOYEE NOT SENT *****BEFORE***** ONE MINUTE////*@
+                    else if (item.EmpSent != true && item.TimeEntered.AddMinutes(1) > DateTime.Now)
+                    {
+                        <tr class="flashTime">
+                            <td class="w-75 h-25 p-0" style="font-size:large">@item.Employee.DisplayName-@item.Employee.DispatchNumber</td>
+                            <td class="h-25 p-0" style="font-size:large">@item.EmpPositionNavigation.PositionName</td>
+                            <td class="h-25 justify-content-center p-0 pl-1">
+                                <input type="checkbox" value="" id="flexCheckChecked">
+                        </tr>
+                    }
+                    @*////EMPLOYEE NOT SENT AFTER ONE MINUTE////*@
+                    else
+                    {
+                        <tr>
+                            <td class="w-75 h-25 p-0" style="font-size:large">@item.Employee.DisplayName-@item.Employee.DispatchNumber</td>
+                            <td class="h-25 p-0" style="font-size:large">@item.EmpPositionNavigation.PositionName</td>
+                            <td class="h-25 justify-content-center p-0 pl-1">
+                                <input type="checkbox" value="" id="flexCheckChecked">
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+        <div>
+            @await Html.PartialAsync("../Shared/_BrkDthDropdowns")
+        </div>
+    </div>
+    <div class="card border-0 d-inline-block align-top" style="width: 18rem; height:fit-content">
+        @*Lunches*@
+        <div class="card-header text-center font-weight-bolder">
+            Lunch
+        </div>
+        <table class="table table-bordered"> 
+            <tbody>
+                @foreach (var item in Model.Lunches)
+                {
+                    @*////EMPLOYEE SENT////*@
+                    @if (item.EmpSent == true)
+                    {
+                        @if (ViewData["fireCounted"].Equals(true))
+                        {
+                            <tr class="table-success">
+                                <td class="w-75 h-25 p-0" style="font-size:large">@item.Employee.DisplayName-@item.Employee.DispatchNumber</td>
+                                <td class="h-25 w-25 p-0" style="font-size:large">@item.EmpPositionNavigation.PositionName</td>
+                                <td class="h-25 pl-1 pr-1 pb-0 pt-0" style="font-size:large">@item.LunchTime.ToShortTimeString()</td>
+                                <td class="h-25 pl-1 pr-1 pb-0 pt-0">
+                                    <input type="checkbox" value="" id="flexCheckChecked" checked>
+                                </td>
+                            </tr>
+                        }
+                        else if (ViewData["fireCounted"].Equals(false) && (item.EmpPositionNavigation.PositionName.ToString().Equals("FR") || item.EmpPositionNavigation.PositionName.ToString().Equals("FL") || item.EmpPositionNavigation.PositionName.ToString().Equals("FC")))
+                        {
+                            <tr class="table-secondary" style="color:darkgrey">
+                                <td class="w-75 h-25 p-0" style="font-size:large">@item.Employee.DisplayName-@item.Employee.DispatchNumber (Fire)</td>
+                                <td class="h-25 w-25 p-0" style="font-size:large">@item.EmpPositionNavigation.PositionName</td>
+                                <td class="h-25 pl-1 pr-1 pb-0 pt-0" style="font-size:large">@item.LunchTime.ToShortTimeString()</td>
+                                <td class="h-25 pl-1 pr-1 pb-0 pt-0">
+                                    <input type="checkbox" value="" id="flexCheckChecked" checked>
+                                </td>
+                            </tr>
+                        }
+
+                        else
+                        {
+                            <tr class="table-success">
+                                <td class="w-75 h-25 p-0" style="font-size:large">@item.Employee.DisplayName-@item.Employee.DispatchNumber</td>
+                                <td class="h-25 w-25 p-0" style="font-size:large">@item.EmpPositionNavigation.PositionName</td>
+                                <td class="h-25 pl-1 pr-1 pb-0 pt-0" style="font-size:large">@item.LunchTime.ToShortTimeString()</td>
+                                <td class="h-25 pl-1 pr-1 pb-0 pt-0">
+                                    <input type="checkbox" value="" id="flexCheckChecked" checked>
+                                </td>
+                            </tr>
+                        }
+
+                    }
+                    @*////EMPLOYEE NOT SENT *****BEFORE***** ONE MINUTE////*@
+                    else if (item.EmpSent == false && item.TimeEntered.AddMinutes(1) > DateTime.Now)
+                    {
+                        <tr class="flashTime">
+                            <td class="w-75 h-25 p-0" style="font-size:large">@item.Employee.DisplayName-@item.Employee.DispatchNumber</td>
+                            <td class="h-25 w-25 p-0" style="font-size:large">@item.EmpPositionNavigation.PositionName</td>
+                            <td class="pl-1 pr-1 pb-0 pt-0" style="font-size:large">@item.LunchTime.ToShortTimeString()</td>
+                            <td class="h-25 pl-1 pr-1 pb-0 pt-0" style="font-size:large">
+                                <input type="checkbox" value="" id="flexCheckChecked">
+                        </tr>
+                    }
+                    @*////EMPLOYEE NOT SENT AFTER ONE MINUTE////*@
+                    else
+                    {
+                        <tr>
+                            <td class="w-75 h-25 p-0" style="font-size:large">@item.Employee.DisplayName-@item.Employee.DispatchNumber</td>
+                            <td class="h-25 w-25 p-0" style="font-size:large">@item.EmpPositionNavigation.PositionName</td>
+                            <td class="h-25 w-25 pl-1 pr-1 pb-0 pt-0" style="font-size:large">@item.LunchTime.ToShortTimeString()</td>
+                            <td class="h-25 pl-1 pr-1 pb-0 pt-0" style="font-size:large">
+                                <input type="checkbox" value="" id="flexCheckChecked">
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+        <div>
+            @await Html.PartialAsync("../Shared/_LunchMainPageDropdowns")
+        </div>
+    </div>
+</div>

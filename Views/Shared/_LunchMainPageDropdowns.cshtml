@@ -1,0 +1,43 @@
+﻿@model Seating.ViewModels.ListsVM
+
+<div class="LunchdropdownGroup ml-3">
+    <div class="btn-group" style="margin-left:-.5rem">
+        <button class="btn btn-sm dropdown-toggle d-inline-block pr-1" style="width: 9.6em; padding-left: .2rem; background-color: whitesmoke" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Dispatcher
+        </button>
+        <div class="dropdown-menu">
+            @foreach (var item in Model.Employees)
+            {
+                <a style="font-family: 'Roboto', sans-serif;" class="dropdown-item">@item.DisplayName</a>
+            }
+        </div>
+    </div>
+
+    <div class="btn-group">
+        <button class="btn btn-sm dropdown-toggle d-inline-block" style="width: 9.6em; background-color: whitesmoke" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Position
+        </button>
+        <div class="dropdown-menu">
+            @foreach (var item in Model.Positions)
+            {
+                <a style="font-family: 'Roboto', sans-serif;" class="dropdown-item">@item.PositionName</a>
+            }
+        </div>
+    </div>
+
+    <div class="btn-group">
+        <button class="btn btn-sm dropdown-toggle d-inline-block mt-2" style="width:12em; background-color:whitesmoke" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Lunch Time
+        </button>
+        <div class="dropdown-menu">
+            Times
+        </div>
+    </div>
+
+    <div class="btn-group">
+        45 min:<input class="ml-2" style="margin-top:.4em" type="checkbox" value="" id="flexCheckChecked">
+    </div>
+
+    <button type="button" class="btn btn-sm mt-2 btn-block" style="margin-left:-.5rem; background-color:whitesmoke">Submit</button>
+
+</div>
