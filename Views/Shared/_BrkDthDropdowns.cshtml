@@ -6,7 +6,7 @@
             Dispatcher
         </button>
         <div class="dropdown-menu" style="width:7.85em">
-            @foreach (var item in Model.Employees)
+            @foreach (var item in Model.Employees.OrderBy(n => n.DisplayName))
             {
                 <a style="font-family: 'Roboto', sans-serif;" class="dropdown-item pr-1">@item.DisplayName</a>
             }
@@ -18,7 +18,7 @@
             Position
         </button>
         <div class="dropdown-menu">
-            @foreach (var item in Model.Positions)
+            @foreach (var item in Model.Positions.OrderBy(n => n.PositionName))
             {
                 <a style="font-family: 'Roboto', sans-serif;" class="dropdown-item">@item.PositionName</a>
             }
