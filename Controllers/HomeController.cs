@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Logging;
 using Seating.Models;
 using Seating.ViewModels;
@@ -23,12 +24,11 @@ namespace Seating.Controllers
         {
             var tables = new ListsVM
             {
-                Employees = _context.Employees.ToList(),
+                Employees = _context.Employees.Where(n => n.IsEmployed == true).OrderBy(n => n.DisplayName).ToList(),
                 Dths = _context.Dths.Where(n => n.TimeCleared == null).OrderBy(n => n.TimeEntered).ToList(),
                 Breaks = _context.Breaks.Where(n => n.TimeCleared == null).OrderBy(n => n.TimeEntered).ToList(),
                 Lunches = _context.Lunches.Where(n => n.TimeCleared == null).OrderBy(n => n.LunchTime).ToList(),
-                Positions = _context.Positions.ToList(),
-                LunchTime = _context.LunchTimes.ToList()
+                Positions = _context.Positions.OrderBy(n => n.PositionName).ToList(),
             };
 
             //Controls what populates the "off the floor" number on the home page
@@ -48,7 +48,6 @@ namespace Seating.Controllers
 
             //Start Lunch List Population
             var dt = DateTime.Now;
-
 
             ////////////////////////////////////////////////////////////////////0400 Shift Start time
             List<string> fourAM = new List<string>();
@@ -530,6 +529,7 @@ namespace Seating.Controllers
 
             ////////////////////////////////////////////////////////////////////////////////////////////1800 Shift Start time
             List<string> eighteenhundred = new List<string>();
+            List<string> eighteenafter12 = new List<string>();
             var twentytwo30 = new bool();
             var twentythree = new bool();
             var twentythree30 = new bool();
@@ -584,7 +584,7 @@ namespace Seating.Controllers
 
 
             ///// 1800 time deliniation
-            if (dt.Hour <= 23)
+            if (dt.Hour != 00)
             {
                 ///////00:00 lunch before midnight
                 foreach (var item in tables.Lunches)
@@ -630,7 +630,7 @@ namespace Seating.Controllers
 
                 if (midnight == false)
                 {
-                    eighteenhundred.Add(new DateTime(dt.Year, dt.Month, dt.Day, 00, 00, 00).ToString("M/d/yy HH:mm"));
+                    eighteenafter12.Add(new DateTime(dt.Year, dt.Month, dt.Day, 00, 00, 00).ToString("M/d/yy HH:mm"));
                 }
 
                 //////////////00:30 lunch after midnight
@@ -645,20 +645,21 @@ namespace Seating.Controllers
 
                 if (midnight30 == false)
                 {
-                    eighteenhundred.Add(new DateTime(dt.Year, dt.Month, dt.Day, 00, 30, 00).ToString("M/d/yy HH:mm"));
+                    eighteenafter12.Add(new DateTime(dt.Year, dt.Month, dt.Day, 00, 30, 00).ToString("M/d/yy HH:mm"));
                 }
             }
 
 
             ///////////////////////////2000 Shift Start time
             List<string> twentyhundred = new List<string>();
+            List<string> twentyafter12 = new List<string>();
             var one = new bool();
             var one30 = new bool();
             var two = new bool();
             var two30 = new bool();
             var three = new bool();
 
-            if (dt.Hour <= 23)
+            if (dt.Hour != 00 && dt.Hour != 01 && dt.Hour != 02 && dt.Hour != 03)
             {
                 //01:00 lunch
                 foreach (var item in tables.Lunches)
@@ -750,7 +751,7 @@ namespace Seating.Controllers
 
                 if (one == false)
                 {
-                    twentyhundred.Add(new DateTime(dt.Year, dt.Month, dt.Day, 01, 00, 00).ToString("M/d/yy HH:mm"));
+                    twentyafter12.Add(new DateTime(dt.Year, dt.Month, dt.Day, 01, 00, 00).ToString("M/d/yy HH:mm"));
                 }
 
                 //01:30 lunch
@@ -765,7 +766,7 @@ namespace Seating.Controllers
 
                 if (one30 == false)
                 {
-                    twentyhundred.Add(new DateTime(dt.Year, dt.Month, dt.Day, 01, 30, 00).ToString("M/d/yy HH:mm"));
+                    twentyafter12.Add(new DateTime(dt.Year, dt.Month, dt.Day, 01, 30, 00).ToString("M/d/yy HH:mm"));
                 }
 
                 //02:00 lunch
@@ -780,7 +781,7 @@ namespace Seating.Controllers
 
                 if (two == false)
                 {
-                    twentyhundred.Add(new DateTime(dt.Year, dt.Month, dt.Day, 02, 00, 00).ToString("M/d/yy HH:mm"));
+                    twentyafter12.Add(new DateTime(dt.Year, dt.Month, dt.Day, 02, 00, 00).ToString("M/d/yy HH:mm"));
                 }
 
                 //02:30 lunch
@@ -795,7 +796,7 @@ namespace Seating.Controllers
 
                 if (two30 == false)
                 {
-                    twentyhundred.Add(new DateTime(dt.Year, dt.Month, dt.Day, 02, 30, 00).ToString("M/d/yy HH:mm"));
+                    twentyafter12.Add(new DateTime(dt.Year, dt.Month, dt.Day, 02, 30, 00).ToString("M/d/yy HH:mm"));
                 }
 
                 //03:00 lunch
@@ -810,17 +811,18 @@ namespace Seating.Controllers
 
                 if (three == false)
                 {
-                    twentyhundred.Add(new DateTime(dt.Year, dt.Month, dt.Day, 03, 00, 00).ToString("M/d/yy HH:mm"));
+                    twentyafter12.Add(new DateTime(dt.Year, dt.Month, dt.Day, 03, 00, 00).ToString("M/d/yy HH:mm"));
                 }
             }
 
             ///////////////////////////2200 Shift Start time
             List<string> twentytwohundred = new List<string>();
+            List<string> twentytwoafter12 = new List<string>();
             var three30 = new bool();
             var four = new bool();
             var four30 = new bool();
 
-            if (dt.Hour <= 23)
+            if (dt.Hour != 00 && dt.Hour != 01 && dt.Hour != 02 && dt.Hour != 03 && dt.Hour != 04)
             {
                 //03:30 lunch
                 foreach (var item in tables.Lunches)
@@ -882,7 +884,7 @@ namespace Seating.Controllers
 
                 if (three30 == false)
                 {
-                    twentytwohundred.Add(new DateTime(dt.Year, dt.Month, dt.Day, 03, 30, 00).ToString("M/d/yy HH:mm"));
+                    twentytwoafter12.Add(new DateTime(dt.Year, dt.Month, dt.Day, 03, 30, 00).ToString("M/d/yy HH:mm"));
                 }
 
                 //04:00 lunch
@@ -897,7 +899,7 @@ namespace Seating.Controllers
 
                 if (four == false)
                 {
-                    twentytwohundred.Add(new DateTime(dt.Year, dt.Month, dt.Day, 04, 00, 00).ToString("M/d/yy HH:mm"));
+                    twentytwoafter12.Add(new DateTime(dt.Year, dt.Month, dt.Day, 04, 00, 00).ToString("M/d/yy HH:mm"));
                 }
 
                 //04:30 lunch
@@ -912,7 +914,7 @@ namespace Seating.Controllers
 
                 if (four30 == false)
                 {
-                    twentytwohundred.Add(new DateTime(dt.Year, dt.Month, dt.Day, 04, 30, 00).ToString("M/d/yy HH:mm"));
+                    twentytwoafter12.Add(new DateTime(dt.Year, dt.Month, dt.Day, 04, 30, 00).ToString("M/d/yy HH:mm"));
                 }
             }
 
@@ -927,15 +929,100 @@ namespace Seating.Controllers
             ViewBag.eighteenhundred = eighteenhundred;
             ViewBag.twentyhundred = twentyhundred;
             ViewBag.twentytwohundred = twentytwohundred;
+            ViewBag.eighteenafter12 = eighteenafter12;
+            ViewBag.twentyafter12 = twentyafter12;
+            ViewBag.twentytwoafter12 = twentytwoafter12;
 
 
             return View(tables);
         }
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
+        //Dth Section
+
+        public IActionResult CreateDth()
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            ViewData["EmpPosition"] = new SelectList(_context.Positions, "Id", "Id");
+            ViewData["EmployeeId"] = new SelectList(_context.Employees, "Id", "DisplayName");
+            return View();
+        }
+
+        // POST: Dths/Create
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CreateDth([Bind("Id,TimeEntered,TimeCleared,EmpSent,EmployeeId,EmpPosition,RlfPosition")] Dth dth)
+        {
+            if (ModelState.IsValid)
+            {
+                dth.TimeEntered = DateTime.Now;
+                _context.Add(dth);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            ViewData["EmpPosition"] = new SelectList(_context.Positions, "Id", "Id", dth.EmpPosition);
+            ViewData["EmployeeId"] = new SelectList(_context.Employees, "Id", "DisplayName", dth.EmployeeId);
+            return View(dth);
+        }
+
+
+
+        //Break Section
+
+        public IActionResult CreateBreak()
+        {
+            ViewData["EmpPosition"] = new SelectList(_context.Positions, "Id", "PositionName");
+            ViewData["EmployeeId"] = new SelectList(_context.Employees, "Id", "DisplayName");
+            return View();
+        }
+
+        // POST: Breaks/Create
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CreateBreak([Bind("Id,TimeEntered,TimeCleared,EmpSent,EmployeeId,EmpPosition,RlfPosition")] Break @break)
+        {
+            if (ModelState.IsValid)
+            {
+                @break.TimeEntered = DateTime.Now;
+                _context.Add(@break);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            ViewData["EmpPosition"] = new SelectList(_context.Positions, "Id", "PositionName", @break.EmpPosition);
+            ViewData["EmployeeId"] = new SelectList(_context.Employees, "Id", "DisplayName", @break.EmployeeId);
+            return View(@break);
+        }
+
+        //Lunch Section
+
+        public IActionResult CreateLunch()
+        {
+            ViewData["EmpPosition"] = new SelectList(_context.Positions, "Id", "Id");
+            ViewData["EmployeeId"] = new SelectList(_context.Employees, "Id", "DisplayName");
+            ViewData["ReasonId"] = new SelectList(_context.Reasons, "Id", "ReasonName");
+            return View();
+        }
+
+        // POST: Lunches/Create
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CreateLunch([Bind("Id,TimeEntered,TimeCleared,EmpSent,LunchTime,EmployeeId,ReasonId,EmpPosition,RlfPosition")] Lunch lunch)
+        {
+            if (ModelState.IsValid)
+            {
+                lunch.TimeEntered = DateTime.Now;
+                _context.Add(lunch);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            ViewData["EmpPosition"] = new SelectList(_context.Positions, "Id", "Id", lunch.EmpPosition);
+            ViewData["EmployeeId"] = new SelectList(_context.Employees, "Id", "DisplayName", lunch.EmployeeId);
+            ViewData["ReasonId"] = new SelectList(_context.Reasons, "Id", "ReasonName", lunch.ReasonId);
+            return View(lunch);
         }
     }
 }

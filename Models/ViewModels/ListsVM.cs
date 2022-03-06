@@ -18,6 +18,10 @@ namespace Seating.ViewModels
         public IEnumerable<Lunch> Lunches { get; set; }
         public IEnumerable<Employee> Employees { get; set; }
         public IEnumerable<Position> Positions { get; set; }
-        public IEnumerable<LunchTimes> LunchTime { get; set; }
+
+        public int EmployeeId { get; set; }
+        public int EmpPosition { get; set; }
+        public bool EmpSent { get; set; }
+        public bool LunchTime { get; set; }
     }
 }

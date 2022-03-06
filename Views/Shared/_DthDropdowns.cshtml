@@ -1,0 +1,24 @@
+﻿@model Seating.ViewModels.ListsVM
+
+<form asp-controller="Home" asp-action="CreateDth">
+    <div class="btn-group">
+        <select class="form-group btn-sm dropdown-toggle btn-outline-light dropdownStyling" style="width: 7.4em;" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="EmployeeId" asp-for="EmployeeId">
+            <option>Dispatcher</option>
+            @foreach (var item in Model.Employees)
+            {
+                <option class="dropdown-item pr-1 form-control" value="@item.Id">@item.DisplayName</option>
+            }
+        </select>
+    </div>
+
+    <div class="btn-group">
+        <select class="form-group btn-sm btn-outline-light dropdown-toggle dropdownStyling" style="width: 7.3em;" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="EmpPosition" asp-for="EmpPosition">
+            <option>Position</option>
+            @foreach (var item in Model.Positions)
+            {
+                <option class="dropdown-item pr-1" value="@item.Id">@item.PositionName</option>
+            }
+        </select>
+    </div>
+    <button type="submit" class="btn btn-sm btn-block btn-outline-light dropdownStyling" id="dth-submit" style="margin-left: -.06rem">Submit</button>
+</form>

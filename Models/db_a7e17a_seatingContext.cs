@@ -23,7 +23,6 @@ namespace Seating.Models
         public virtual DbSet<Lunch> Lunches { get; set; }
         public virtual DbSet<Position> Positions { get; set; }
         public virtual DbSet<Reason> Reasons { get; set; }
-        public virtual DbSet<LunchTimes> LunchTimes { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

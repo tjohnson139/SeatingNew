@@ -1,142 +1,152 @@
 ﻿@model Seating.ViewModels.ListsVM 
 
-<div class="LunchdropdownGroup ml-3">
-    <button type="button" class="btn btn-link btn-block" style="margin-left:-.5rem; margin-top:-1rem; font-size:15px">Go to Lunch Screen</button>
-    <div class="btn-group" style="margin-left:-.5rem">
-        <button class="btn btn-sm dropdown-toggle d-inline-block pr-1" style="width: 9.6em; padding-left: .2rem; background-color: whitesmoke" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Dispatcher
-        </button>
-        <div class="dropdown-menu">
-            @foreach (var item in Model.Employees.OrderBy(n => n.DisplayName))
+<form asp-controller="Home" asp-action="CreateLunch" class="DthdropdownGroup ml-3">
+    <div class="btn-group" style="margin-left:-.6rem;">
+        <select class="form-group btn- btn-sm dropdown-toggle d-inline-block pr-1 btn-outline-light" style="color:black; font-family: 'Roboto', sans-serif; font-size: 16px; width: 8.5em; padding-left: .2rem; background-color: whitesmoke" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="EmployeeId" asp-for="EmployeeId">
+            <option>Dispatcher</option>
+            @foreach (var item in Model.Employees)
             {
-                <a style="font-family: 'Roboto', sans-serif;" class="dropdown-item">@item.DisplayName</a>
+                <option class="dropdown-item pr-1 form-control" value="@item.Id">@item.DisplayName</option>
             }
-        </div>
+        </select>
     </div>
 
     <div class="btn-group">
-        <button class="btn btn-sm dropdown-toggle d-inline-block" style="width: 9.6em; background-color: whitesmoke" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Position
-        </button>
-        <div class="dropdown-menu">
-            @foreach (var item in Model.Positions.OrderBy(n => n.PositionName))
+        <select class="form-group btn-sm dropdown-toggle d-inline-block btn-outline-light" style="color:black; font-family: 'Roboto', sans-serif; width: 8.5em; font-size: 16px; background-color: whitesmoke" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="EmpPosition" asp-for="EmpPosition">
+            <option>Position</option>
+            @foreach (var item in Model.Positions)
             {
-                <a style="font-family: 'Roboto', sans-serif;" class="dropdown-item">@item.PositionName</a>
+                <option value="@item.Id">@item.PositionName</option>
             }
-        </div>
+        </select>
     </div>
 
     <div class="btn-group">
-        <button class="btn btn-sm dropdown-toggle d-inline-block mt-2" style="width:12em; background-color:whitesmoke" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Lunch Time
-        </button>
-        <div class="dropdown-menu">
+        <select class="form-group btn-sm d-inline-block btn-outline-light" style="color:black; margin-top: -.5rem; width: 12em; font-size: 16px; font-family: 'Roboto', sans-serif; text-align:center; background-color: whitesmoke;" type="button" aria-haspopup="true" aria-expanded="false" asp-for="LunchTime">
+            <option style="text-align:center">Lunch Time</option>
+            @if ((DateTime.Now.Hour == 00))
+            {
+                <option disabled>_______________________</option>
+                <option disabled class="dropdown-item" style="text-align:center; color:blue">1800 - 0400</option>
+                @foreach (var item in ViewBag.eighteenafter12)
+                {
+                    <option class="dropdown-item">@item</option>
+                }
+            }
+            @if ((DateTime.Now.Hour >= 00 && DateTime.Now.Hour <= 03))
+            {
+                <option disabled>_______________________</option>
+                <option class="dropdown-item" style="text-align:center; color:blue;" disabled>2000 - 0600</option>
+                @foreach (var item in ViewBag.twentyafter12)
+                {
+                    <option class="dropdown-item">@item</option>
+                }
+            }
+            @if ((DateTime.Now.Hour >= 00 && DateTime.Now.Hour <= 04))
+            {
+                <option disabled>_______________________</option>
+                <option class="dropdown-item" style="text-align:center; color:blue" disabled>2200 - 0800</option>
+                @foreach (var item in ViewBag.twentytwoafter12)
+                {
+                    <option class="dropdown-item">@item</option>
+                }
+            }
             @if (DateTime.Now.Hour >= 01 && DateTime.Now.Hour <= 10)
             {
-                <div class="dropdown-divider mb-0"></div>
-                <a class="dropdown-item disabled" style="font-size: smaller; text-align:center" href="#">0400 - 1400</a>
-                <div class="dropdown-divider mt-0"></div>
+                <option disabled>_______________________</option>
+                <option class="dropdown-item" disabled style="text-align:center; color:blue">0400 - 1400</option>
                 @foreach (var item in ViewBag.fourAM)
                 {
-                    <a style="font-family: 'Roboto', sans-serif;" class="dropdown-item">@item</a>
+                    <option class="dropdown-item">@item</option>
                 }
             }
             @if (DateTime.Now.Hour >= 03 && DateTime.Now.Hour <= 12)
             {
-                <div class="dropdown-divider mb-0"></div>
-                <a class="dropdown-item disabled" style="font-size: smaller; text-align:center" href="#">0600 - 1600</a>
-                <div class="dropdown-divider mt-0"></div>
+                <option disabled>_______________________</option>
+                <option class="dropdown-item" disabled style="text-align:center; color:blue;">0600 - 1600</option>
                 @foreach (var item in ViewBag.sixAM)
                 {
-                    <a style="font-family: 'Roboto', sans-serif;" class="dropdown-item">@item</a>
+                    <option class="dropdown-item">@item</option>
                 }
             }
             @if (DateTime.Now.Hour >= 05 && DateTime.Now.Hour <= 14)
             {
-                <div class="dropdown-divider mb-0"></div>
-                <a class="dropdown-item disabled" style="font-size: smaller; text-align:center" href="#">0800 - 1800</a>
-                <div class="dropdown-divider mt-0"></div>
+                <option disabled>_______________________</option>
+                <option class="dropdown-item disabled" style="text-align:center; color:blue">0800 - 1800</option>
                 @foreach (var item in ViewBag.eightAM)
                 {
-                    <a style="font-family: 'Roboto', sans-serif;" class="dropdown-item">@item</a>
+                    <option class="dropdown-item">@item</option>
                 }
             }
             @if (DateTime.Now.Hour >= 07 && DateTime.Now.Hour <= 16)
             {
-                <div class="dropdown-divider mb-0"></div>
-                <a class="dropdown-item disabled" style="font-size: smaller; text-align:center" href="#">1000 - 2000</a>
-                <div class="dropdown-divider mt-0"></div>
+                <option disabled>_______________________</option>
+                <option disabled class="dropdown-item" style="text-align:center; color:blue">1000 - 2000</option>
                 @foreach (var item in ViewBag.tenAM)
                 {
-                    <a style="font-family: 'Roboto', sans-serif;" class="dropdown-item">@item</a>
+                    <option class="dropdown-item">@item</option>
                 }
             }
             @if (DateTime.Now.Hour >= 09 && DateTime.Now.Hour <= 18)
             {
-                <div class="dropdown-divider mb-0"></div>
-                <a class="dropdown-item disabled" style="font-size: smaller; text-align:center" href="#">1200 - 2200</a>
-                <div class="dropdown-divider mt-0"></div>
+                <option disabled>_______________________</option>
+                <option class="dropdown-item" style="text-align:center; color:blue" disabled>1200 - 2200</option>
                 @foreach (var item in ViewBag.noon)
                 {
-                    <a style="font-family: 'Roboto', sans-serif;" class="dropdown-item">@item</a>
+                    <option class="dropdown-item">@item</option>
                 }
             }
             @if (DateTime.Now.Hour >= 11 && DateTime.Now.Hour <= 20)
             {
-                <div class="dropdown-divider mb-0"></div>
-                <a class="dropdown-item disabled" style="font-size: smaller; text-align:center" href="#">1400 - 0000</a>
-                <div class="dropdown-divider mt-0"></div>
+                <option disabled>_______________________</option>
+                <option class="dropdown-item" style="text-align:center; color:blue" disabled>1400 - 0000</option>
                 @foreach (var item in ViewBag.fourteenhundred)
                 {
-                    <a style="font-family: 'Roboto', sans-serif;" class="dropdown-item">@item</a>
+                    <option class="dropdown-item">@item</option>
                 }
             }
             @if (DateTime.Now.Hour >= 13 && DateTime.Now.Hour <= 22)
             {
-                <div class="dropdown-divider mb-0"></div>
-                <a class="dropdown-item disabled" style="font-size: smaller; text-align:center" href="#">1600 - 0200</a>
-                <div class="dropdown-divider mt-0"></div>
+                <option disabled>_______________________</option>
+                <option disabled class="dropdown-item pb-3" style="text-align:center; color:blue">1600 - 0200</option>
                 @foreach (var item in ViewBag.sixteenhundred)
                 {
-                    <a style="font-family: 'Roboto', sans-serif;" class="dropdown-item">@item</a>
+                    <option class="dropdown-item">@item</option>
                 }
             }
             @if ((DateTime.Now.Hour >= 15 && DateTime.Now.Hour <= 23) || (DateTime.Now.Hour == 00))
             {
-                <div class="dropdown-divider mb-0"></div>
-                <a class="dropdown-item disabled" style="font-size: smaller; text-align:center" href="#">1800 - 0400</a>
-                <div class="dropdown-divider mt-0"></div>
+                <option disabled>_______________________</option>
+                <option disabled class="dropdown-item" style="text-align:center; color:blue">1800 - 0400</option>
                 @foreach (var item in ViewBag.eighteenhundred)
                 {
-                    <a style="font-family: 'Roboto', sans-serif;" class="dropdown-item">@item</a>
+                    <option class="dropdown-item">@item</option>
                 }
             }
-            @if ((DateTime.Now.Hour >= 17 && DateTime.Now.Hour <= 23) || (DateTime.Now.Hour == 00 || DateTime.Now.Hour == 01 || DateTime.Now.Hour == 02 || DateTime.Now.Hour == 03))
+            @if ((DateTime.Now.Hour >= 17 && DateTime.Now.Hour <= 23))
             {
-                <div class="dropdown-divider mb-0"></div>
-                <a class="dropdown-item disabled" style="font-size: smaller; text-align:center" href="#">2000 - 0600</a>
-                <div class="dropdown-divider mt-0"></div>
+                <option disabled>_______________________</option>
+                <option class="dropdown-item" style="text-align:center; color:blue;" disabled>2000 - 0600</option>
                 @foreach (var item in ViewBag.twentyhundred)
                 {
-                    <a style="font-family: 'Roboto', sans-serif;" class="dropdown-item">@item</a>
+                    <option class="dropdown-item">@item</option>
                 }
             }
-            @if ((DateTime.Now.Hour >= 19 && DateTime.Now.Hour <= 23) || (DateTime.Now.Hour == 00 || DateTime.Now.Hour == 01 || DateTime.Now.Hour == 02 || DateTime.Now.Hour == 03 || DateTime.Now.Hour == 04))
+            @if ((DateTime.Now.Hour >= 19 && DateTime.Now.Hour <= 23))
             {
-                <div class="dropdown-divider mb-0"></div>
-                <a class="dropdown-item disabled" style="font-size: smaller; text-align:center" href="#">2200 - 0800</a>
-                <div class="dropdown-divider mt-0"></div>
+                <option disabled>_______________________</option>
+                <option class="dropdown-item" style="text-align:center; color:blue" disabled>2200 - 0800</option>
                 @foreach (var item in ViewBag.twentytwohundred)
                 {
-                    <a style="font-family: 'Roboto', sans-serif;" class="dropdown-item">@item</a>
+                    <option class="dropdown-item">@item</option>
                 }
             }
-        </div>
+        </select>
     </div>
 
-    <div class="btn-group">
-        45 min:<input class="ml-2" style="margin-top:.4em" type="checkbox" value="" id="flexCheckChecked">
+    <div class="btn-group" style="margin-top:-2rem; margin-left:1rem">
+        45<input style="margin-left:.2rem; margin-top: .4rem;" type="checkbox" value="" id="flexCheckChecked" asp-for="EmpSent">
     </div>
 
-    <button type="button" class="btn btn-sm mt-2 btn-block" style="margin-left:-.5rem; background-color:whitesmoke">Submit</button>
-</div>
+    <button type="submit" class="dropdownStyling btn btn-sm btn-block btn-outline-light" style="margin-left:-.5rem; width: 17.25rem; margin-top:-.5rem">Submit</button>
+</form>
