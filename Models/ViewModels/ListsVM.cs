@@ -23,5 +23,7 @@ namespace Seating.ViewModels
         public int EmpPosition { get; set; }
         public bool EmpSent { get; set; }
         public bool LunchTime { get; set; }
+        public bool LongerLunch { get; set; }
+        public bool DblLunch { get; set; }
     }
 }

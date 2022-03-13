@@ -17,26 +17,28 @@
 <body>
     <header style="background-color:steelblue; width:150%">
         @*Alert Volume Switch*@
-        <div class="alert-switch d-inline-block mt-3" style="margin-left:2rem">
+        <div class="alert-switch d-inline-block mt-3" style="margin-left:2rem" id="alertSwitch">
             <h6 style="color:white">Audible Alerts</h6>
-            <span class="switch-toggle">
+            <span class="switch-toggle" id="audibleAlert">
                 <input type="checkbox" id="bluetooth">
                 <label for="bluetooth"></label>
             </span>
         </div>
-        <div class="d-inline-block" style="margin-left:18rem; margin-right:18rem;">
-            @if (Convert.ToDouble(ViewData["offFloor"]) == 3)
-            {
-            <span class="navbar-brand d-inline-block autoRefresh mr-0" style="color: white; font-family: 'Merriweather Sans', sans-serif;"><span class="offFloor" style="font-size: 50px; font-weight: bold; color: yellow; text-shadow: -1px 1px 2px black">@ViewData["offFloor"]</span> off the floor</span>
-            }
-            else if (Convert.ToDouble(ViewData["offFloor"]) > 3)
-            {
-            <span class="navbar-brand d-inline-block autoRefresh mr-0" style="color: white; font-family: 'Merriweather Sans', sans-serif;"><span class="offFloor" style="font-size: 50px; font-weight: bold; color: red; text-shadow: -1px 1px 2px white">@ViewData["offFloor"]</span> off the floor</span>
-            }
-            else
-            {
-            <span class="navbar-brand d-inline-block autoRefresh mr-0" style="color: white; font-family: 'Merriweather Sans', sans-serif;"><span class="offFloor" style="font-size: 50px; font-weight: bold">@ViewData["offFloor"]</span> off the floor</span>
-            }
+        <div class="d-inline-block" id="headerRefresh">
+            <div class="d-inline-block" style="margin-left:18rem; margin-right:18rem;">
+                @if (Convert.ToDouble(ViewData["offFloor"]) == 3)
+                {
+                    <span class="navbar-brand autoRefresh mr-0" style="color: white; font-family: 'Merriweather Sans', sans-serif;"><span class="offFloor" style="font-size: 50px; font-weight: bold; color: yellow; text-shadow: -1px 1px 2px black">@ViewData["offFloor"]</span> off the floor</span>
+                }
+                else if (Convert.ToDouble(ViewData["offFloor"]) > 3)
+                {
+                    <span class="navbar-brand autoRefresh mr-0" style="color: white; font-family: 'Merriweather Sans', sans-serif;"><span class="offFloor" style="font-size: 50px; font-weight: bold; color: red; text-shadow: -1px 1px 2px white">@ViewData["offFloor"]</span> off the floor</span>
+                }
+                else
+                {
+                    <span class="navbar-brand autoRefresh mr-0" style="color: white; font-family: 'Merriweather Sans', sans-serif;"><span class="offFloor" style="font-size: 50px; font-weight: bold">@ViewData["offFloor"]</span> off the floor</span>
+                }
+            </div>
         </div>
         <span class="d-inline-block" style="color:white; font-family: 'Quicksand', sans-serif;">Login</span>
     </header>
@@ -49,6 +51,7 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.1/howler.min.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

@@ -19,6 +19,7 @@ namespace Seating.Models
 
         public int Id { get; set; }
         public string PositionName { get; set; }
+        public bool isActive { get; set; }
 
         public virtual ICollection<Break> BreakEmpPositionNavigations { get; set; }
         public virtual ICollection<Break> BreakRlfPositionNavigations { get; set; }

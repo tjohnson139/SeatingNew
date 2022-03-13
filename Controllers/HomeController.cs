@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Seating.Models;
 using Seating.ViewModels;
@@ -44,7 +45,6 @@ namespace Seating.Controllers
             ViewData["offFloor"] = tables.Breaks.Where(n => n.TimeCleared == null && n.EmpSent == true).Count() + tables.Dths.Where(n => n.EmpSent == true && n.TimeCleared == null).Count() + tables.Lunches.Where(n => n.EmpSent == true && n.TimeCleared == null && (fireCounted.Equals(true) || (fireCounted.Equals(false) && n.EmpPositionNavigation.PositionName != "FR" && n.EmpPositionNavigation.PositionName != "FL" && n.EmpPositionNavigation.PositionName != "FC"))).Count();
 
             ViewData["fireCounted"] = fireCounted;
-
 
             //Start Lunch List Population
             var dt = DateTime.Now;
@@ -937,8 +937,10 @@ namespace Seating.Controllers
             return View(tables);
         }
 
-        //Dth Section
 
+        /////////////////////////////////////////////Dth Section
+
+        //Create//
         public IActionResult CreateDth()
         {
             ViewData["EmpPosition"] = new SelectList(_context.Positions, "Id", "Id");
@@ -965,13 +967,50 @@ namespace Seating.Controllers
             return View(dth);
         }
 
+        //Send off the floor
+        [HttpPost]
+        public async Task<ActionResult> empSentDth(int Id)
+        {
+            try
+            {
+                Dth dths = _context.Dths.Find(Id);
+                dths.EmpSent = true;
+                await _context.SaveChangesAsync();
+
+                return Json(new { success = true, });
+            }
+            catch (Exception)
+            {
+                return Json(new { success = false });
+            }
+        }
 
 
-        //Break Section
+        //Delete//
+        [HttpPost]
+        public async Task<ActionResult> DeleteDth(int Id)
+        {
+            try
+            {
+                Dth dths = _context.Dths.Find(Id);
+                dths.TimeCleared = DateTime.Now;
+                await _context.SaveChangesAsync();
 
+                return Json(new { success = true, });
+            }
+            catch (Exception)
+            {
+                return Json(new { success = false });
+            }
+        }
+
+
+        ///////////////////////////////////Break Section
+
+        //Create//
         public IActionResult CreateBreak()
         {
-            ViewData["EmpPosition"] = new SelectList(_context.Positions, "Id", "PositionName");
+            ViewData["EmpPosition"] = new SelectList(_context.Positions, "Id", "Id");
             ViewData["EmployeeId"] = new SelectList(_context.Employees, "Id", "DisplayName");
             return View();
         }
@@ -990,12 +1029,49 @@ namespace Seating.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["EmpPosition"] = new SelectList(_context.Positions, "Id", "PositionName", @break.EmpPosition);
+            ViewData["EmpPosition"] = new SelectList(_context.Positions, "Id", "Id", @break.EmpPosition);
             ViewData["EmployeeId"] = new SelectList(_context.Employees, "Id", "DisplayName", @break.EmployeeId);
             return View(@break);
         }
 
-        //Lunch Section
+        //Send off the floor
+        [HttpPost]
+        public async Task<ActionResult> empSentBreak(int Id)
+        {
+            try
+            {
+                Break @break = _context.Breaks.Find(Id);
+                @break.EmpSent = true;
+                await _context.SaveChangesAsync();
+
+                return Json(new { success = true, });
+            }
+            catch (Exception)
+            {
+                return Json(new { success = false });
+            }
+        }
+
+
+        //Delete//
+        [HttpPost]
+        public async Task<ActionResult> DeleteBreak(int Id)
+        {
+            try
+            {
+                Break @break = _context.Breaks.Find(Id);
+                @break.TimeCleared = DateTime.Now;
+                await _context.SaveChangesAsync();
+
+                return Json(new { success = true, });
+            }
+            catch (Exception)
+            {
+                return Json(new { success = false });
+            }
+        }
+
+        ////////////////////////////////////////Lunch Section
 
         public IActionResult CreateLunch()
         {
@@ -1010,7 +1086,7 @@ namespace Seating.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> CreateLunch([Bind("Id,TimeEntered,TimeCleared,EmpSent,LunchTime,EmployeeId,ReasonId,EmpPosition,RlfPosition")] Lunch lunch)
+        public async Task<IActionResult> CreateLunch([Bind("Id,TimeEntered,TimeCleared,EmpSent,LunchTime,EmployeeId,ReasonId,EmpPosition,RlfPosition,LongerLunch,DblLunch")] Lunch lunch)
         {
             if (ModelState.IsValid)
             {
@@ -1023,6 +1099,43 @@ namespace Seating.Controllers
             ViewData["EmployeeId"] = new SelectList(_context.Employees, "Id", "DisplayName", lunch.EmployeeId);
             ViewData["ReasonId"] = new SelectList(_context.Reasons, "Id", "ReasonName", lunch.ReasonId);
             return View(lunch);
+        }
+
+        //Send off the floor
+        [HttpPost]
+        public async Task<ActionResult> empSentLunch(int Id)
+        {
+            try
+            {
+                Lunch lunch = _context.Lunches.Find(Id);
+                lunch.EmpSent = true;
+                await _context.SaveChangesAsync();
+
+                return Json(new { success = true, });
+            }
+            catch (Exception)
+            {
+                return Json(new { success = false });
+            }
+        }
+
+
+        //Delete//
+        [HttpPost]
+        public async Task<ActionResult> DeleteLunch(int Id)
+        {
+            try
+            {
+                Lunch lunch = _context.Lunches.Find(Id);
+                lunch.TimeCleared = DateTime.Now;
+                await _context.SaveChangesAsync();
+
+                return Json(new { success = true, });
+            }
+            catch (Exception)
+            {
+                return Json(new { success = false });
+            }
         }
     }
 }

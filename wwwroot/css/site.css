@@ -60,8 +60,8 @@ html {
 }
 
 body {
-  /* Margin bottom by footer height */
   margin-bottom: 60px;
+  /* Margin bottom by footer height */
 }
 .footer {
   position: absolute;
@@ -160,7 +160,7 @@ body {
     }
 }
 
-@keyframes flashtTime {
+@keyframes flashTime {
     from {
         background-color: orange;
     }
@@ -168,6 +168,13 @@ body {
     to {
         background-color: inherit;
     }
+}
+
+.flashTime {
+    -webkit-animation: flashTime 1s infinite; /* Safari 4+ */
+    -moz-animation: flashTime 1s infinite; /* Fx 5+ */
+    -o-animation: flashTime 1s infinite; /* Opera 12+ */
+    animation: flashTime 1s infinite; /* IE 10+ */
 }
 
 .fireNotCounted {

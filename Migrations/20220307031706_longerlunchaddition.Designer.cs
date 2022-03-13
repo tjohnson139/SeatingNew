@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Seating.Models;
 
 namespace Seating.Migrations
 {
     [DbContext(typeof(db_a7e17a_seatingContext))]
-    partial class db_a7e17a_seatingContextModelSnapshot : ModelSnapshot
+    [Migration("20220307031706_longerlunchaddition")]
+    partial class longerlunchaddition
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -132,9 +134,6 @@ namespace Seating.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<bool?>("DblLunch")
-                        .HasColumnType("bit");
-
                     b.Property<int>("EmpPosition")
                         .HasColumnType("int");
 
@@ -184,9 +183,6 @@ namespace Seating.Migrations
 
                     b.Property<string>("PositionName")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("isActive")
-                        .HasColumnType("bit");
 
                     b.HasKey("Id");
 

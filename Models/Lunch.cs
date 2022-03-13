@@ -16,6 +16,8 @@ namespace Seating.Models
         public int? ReasonId { get; set; }
         public int EmpPosition { get; set; }
         public int? RlfPosition { get; set; }
+        public bool? LongerLunch { get; set; }
+        public bool? DblLunch { get; set; }
 
         public virtual Position EmpPositionNavigation { get; set; }
         public virtual Employee Employee { get; set; }

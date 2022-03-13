@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Seating.Models;
 
 namespace Seating.Migrations
 {
     [DbContext(typeof(db_a7e17a_seatingContext))]
-    partial class db_a7e17a_seatingContextModelSnapshot : ModelSnapshot
+    [Migration("20220308033204_activePositiondoubleLunch")]
+    partial class activePositiondoubleLunch
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
