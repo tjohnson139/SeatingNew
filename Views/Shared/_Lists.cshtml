@@ -26,6 +26,7 @@
     }
 </div>
 
+@*//Start DTH / Break / Lunch tables*@
 <div class="d-inline-block bg-transparent" style="width:53rem">
     <div class="card border-0 d-inline-block mr-3" style="width: 15rem; height:fit-content">
         @*Dths*@
@@ -62,6 +63,7 @@
                                     <input class="dthSent" type="checkbox" value="" id="flexCheckChecked">
                                 </td>
                             </tr>
+                            
                         }
                         @*////EMPLOYEE NOT SENT AFTER ONE MINUTE////*@
                         else
@@ -107,6 +109,7 @@
                                     <input type="checkbox" value="" id="flexCheckChecked" checked>
                                 </td>
                             </tr>
+                            
                         }
                         @*////EMPLOYEE NOT SENT *****BEFORE***** ONE MINUTE////*@
                         else if (item.EmpSent != true && item.TimeEntered.AddMinutes(1) > DateTime.Now)
@@ -120,6 +123,7 @@
                                     <input class="BreakSent" type="checkbox" value="" id="flexCheckChecked">
                                 </td>
                             </tr>
+                            
                         }
                         @*////EMPLOYEE NOT SENT AFTER ONE MINUTE////*@
                         else
@@ -134,7 +138,6 @@
                                 </td>
                             </tr>
                         }
-
                     }
                 </tbody>
             </table>
@@ -143,7 +146,7 @@
             @await Html.PartialAsync("../Shared/_BreakDropdowns")
         </div>
     </div>
-    <div class="card border-0 d-inline-block align-top" style="width: 20rem; height:fit-content">
+    <div class="card border-0 d-inline-block align-top" style="width: 20rem; height:fit-content" id="lunchList">
         @*Lunches*@
         <div class="card-header text-center">
             <h5>Lunch</h5>
@@ -154,72 +157,77 @@
                     @foreach (var item in Model.Lunches)
                     {
                         @*////EMPLOYEE SENT WHILE FIRE IS COUNTED NORMAL LUNCH////*@
-                        @if (item.EmpSent == true)
+                        @if (item.EmpSent == true && ViewBag.fireCounted == true)
                         {
-                            @if (ViewData["fireCounted"].Equals(true) && item.LongerLunch != true && item.DblLunch != true)
+                            @*//////////NORMAL LUNCH COUNTED//////////*@
+                            if (item.LongerLunch != true && item.DblLunch != true)
                             {
                                 <tr style="background-color:lightgreen; font-size:large">
                                     <td class="w-75 h-25 p-0">
                                         <input type="hidden" class="hiddenLunchID" value="@item.Id" />
                                         <a href="Javascript:;" class="empNameLunch" style="font-size: large; color: black">@item.Employee.DisplayName-@item.Employee.DispatchNumber</a>
-                                    <td class="h-25 pl-2 pr-2 pb-0 pt-0" style="font-size:large">@item.EmpPositionNavigation.PositionName</td>
-                                    <td class="h-25 pl-2 pr-2 pb-0 pt-0" style="font-size:large">@item.LunchTime.ToShortTimeString()</td>
-                                    <td class="h-25 pl-2 pr-2 pb-0 pt-0">
-                                        <input type="checkbox" value="" id="flexCheckChecked" checked>
-                                    </td>
+                                        <td class="h-25 pl-2 pr-2 pb-0 pt-0" style="font-size:large">@item.EmpPositionNavigation.PositionName</td>
+                                        <td class="h-25 pl-2 pr-2 pb-0 pt-0" style="font-size:large">@item.LunchTime.ToShortTimeString()</td>
+                                        <td class="h-25 pl-2 pr-2 pb-0 pt-0">
+                                            <input type="checkbox" value="" id="flexCheckChecked" checked>
+                                        </td>
                                 </tr>
                             }
                             @*////EMPLOYEE SENT WHILE FIRE IS COUNTED 45 LUNCH////*@
-                            @if (ViewData["fireCounted"].Equals(true) && item.LongerLunch == true && item.DblLunch != true)
+                            else if (item.LongerLunch == true && item.DblLunch != true)
                             {
                                 <tr style="background-color:lightgreen; font-size:large">
                                     <td class="w-75 h-25 p-0">
                                         <input type="hidden" class="hiddenLunchID" value="@item.Id" />
                                         <a href="Javascript:;" class="empNameLunch" style="font-size: large; color: black">@item.Employee.DisplayName-@item.Employee.DispatchNumber<div style="font-weight: bold; display: inline-block; font-size: smaller">&nbsp;-45</div></a>
-                                    <td class="h-25 pl-2 pr-2 pb-0 pt-0" style="font-size:large">@item.EmpPositionNavigation.PositionName</td>
-                                    <td class="h-25 pl-2 pr-2 pb-0 pt-0" style="font-size:large">@item.LunchTime.ToShortTimeString()</td>
-                                    <td class="h-25 pl-2 pr-2 pb-0 pt-0">
-                                        <input type="checkbox" value="" id="flexCheckChecked" checked>
-                                    </td>
+                                        <td class="h-25 pl-2 pr-2 pb-0 pt-0" style="font-size:large">@item.EmpPositionNavigation.PositionName</td>
+                                        <td class="h-25 pl-2 pr-2 pb-0 pt-0" style="font-size:large">@item.LunchTime.ToShortTimeString()</td>
+                                        <td class="h-25 pl-2 pr-2 pb-0 pt-0">
+                                            <input type="checkbox" value="" id="flexCheckChecked" checked>
+                                        </td>
                                 </tr>
+
                             }
                             @*////EMPLOYEE SENT WHILE FIRE IS COUNTED DOUBLE LUNCH////*@
-                            @if (ViewData["fireCounted"].Equals(true) && item.LongerLunch != true && item.DblLunch == true)
+                            else if (item.LongerLunch == false && item.DblLunch != true)
                             {
                                 <tr style="background-color:lightgreen; font-size:large">
                                     <td class="w-75 h-25 p-0">
                                         <input type="hidden" class="hiddenLunchID" value="@item.Id" />
                                         <a href="Javascript:;" class="empNameLunch" style="font-size: large; color: black">@item.Employee.DisplayName-@item.Employee.DispatchNumber<div style="font-weight: bold; display: inline-block; font-size: smaller">&nbsp;-Dbl</div></a>
-                                    <td class="h-25 pl-2 pr-2 pb-0 pt-0" style="font-size:large">@item.EmpPositionNavigation.PositionName</td>
-                                    <td class="h-25 pl-2 pr-2 pb-0 pt-0" style="font-size:large">@item.LunchTime.ToShortTimeString()</td>
-                                    <td class="h-25 pl-2 pr-2 pb-0 pt-0">
-                                        <input type="checkbox" value="" id="flexCheckChecked" checked>
-                                    </td>
+                                        <td class="h-25 pl-2 pr-2 pb-0 pt-0" style="font-size:large">@item.EmpPositionNavigation.PositionName</td>
+                                        <td class="h-25 pl-2 pr-2 pb-0 pt-0" style="font-size:large">@item.LunchTime.ToShortTimeString()</td>
+                                        <td class="h-25 pl-2 pr-2 pb-0 pt-0">
+                                            <input type="checkbox" value="" id="flexCheckChecked" checked>
+                                        </td>
                                 </tr>
                             }
                             @*////EMPLOYEE SENT WHILE FIRE IS COUNTED DOUBLE AND 45 LUNCH////*@
-                            @if (ViewData["fireCounted"].Equals(true) && item.LongerLunch == true && item.DblLunch == true)
+                            else if (item.DblLunch == true && item.LongerLunch == true)
                             {
                                 <tr style="background-color:lightgreen; font-size:large">
                                     <td class="w-75 h-25 p-0">
                                         <input type="hidden" class="hiddenLunchID" value="@item.Id" />
                                         <a href="Javascript:;" class="empNameLunch" style="font-size: large; color: black">@item.Employee.DisplayName-@item.Employee.DispatchNumber<div style="font-weight: bold; display: inline-block; font-size: smaller">&nbsp;-45 -Dbl</div></a>
-                                    <td class="h-25 pl-2 pr-2 pb-0 pt-0" style="font-size:large">@item.EmpPositionNavigation.PositionName</td>
-                                    <td class="h-25 pl-2 pr-2 pb-0 pt-0" style="font-size:large">@item.LunchTime.ToShortTimeString()</td>
-                                    <td class="h-25 pl-2 pr-2 pb-0 pt-0">
-                                        <input type="checkbox" value="" id="flexCheckChecked" checked>
-                                    </td>
+                                        <td class="h-25 pl-2 pr-2 pb-0 pt-0" style="font-size:large">@item.EmpPositionNavigation.PositionName</td>
+                                        <td class="h-25 pl-2 pr-2 pb-0 pt-0" style="font-size:large">@item.LunchTime.ToShortTimeString()</td>
+                                        <td class="h-25 pl-2 pr-2 pb-0 pt-0">
+                                            <input type="checkbox" value="" id="flexCheckChecked" checked>
+                                        </td>
                                 </tr>
                             }
+                        }
+                        else if ((item.EmpPositionNavigation.PositionName.ToString() == "FL" || item.EmpPositionNavigation.PositionName.ToString() == "FC" || item.EmpPositionNavigation.PositionName.ToString() == "FR") && (item.EmpSent == true) && (ViewBag.fireCounted == false))
+                        {
                             @*EMPLOYEE SENT WHILE FIRE IS NOT COUNTED*@
-                            @if (ViewData["fireCounted"].Equals(false) && item.LongerLunch != true && item.DblLunch != true)
+                            @if (item.LongerLunch != true && item.DblLunch != true)
                             {
                                 <tr style="background-color:lightgray; font-size:large">
                                     <td class="w-75 h-25 p-0">
-                                        <input type="hidden" class="hiddenLunchID" value="@item.Id" />
-                                        <a href="Javascript:;" class="empNameLunch" style="font-size: large; color: lightgray">@item.Employee.DisplayName-@item.Employee.DispatchNumber</a>
+                                    <input type="hidden" class="hiddenLunchID" value="@item.Id" />
+                                    <a href="Javascript:;" class="empNameLunch" style="font-size: large; color: gray">@item.Employee.DisplayName-@item.Employee.DispatchNumber (Fire)</a>
                                     <td class="h-25 pl-2 pr-2 pb-0 pt-0" style="font-size:large; color:gray">@item.EmpPositionNavigation.PositionName</td>
-                                    <td class="h-25 pl-2 pr-2 pb-0 pt-0" style="font-size:large">@item.LunchTime.ToShortTimeString()</td>
+                                    <td class="h-25 pl-2 pr-2 pb-0 pt-0" style="font-size: large; color: gray">@item.LunchTime.ToShortTimeString()</td>
                                     <td class="h-25 pl-2 pr-2 pb-0 pt-0">
                                         <input type="checkbox" value="" id="flexCheckChecked" checked>
                                     </td>
@@ -227,129 +235,57 @@
                             }
 
                             @*EMPLOYEE SENT WHILE FIRE IS NOT COUNTED DOUBLE*@
-                            @if (ViewData["fireCounted"].Equals(false) && item.LongerLunch != true && item.DblLunch == true)
+                            else if (item.LongerLunch != true && item.DblLunch == true)
                             {
                                 <tr style="background-color:lightgray; font-size:large">
                                     <td class="w-75 h-25 p-0">
-                                        <input type="hidden" class="hiddenLunchID" value="@item.Id" />
-                                        <a href="Javascript:;" class="empNameLunch" style="font-size: large; color: gray">@item.Employee.DisplayName-@item.Employee.DispatchNumber<div style="font-weight: bold; display: inline-block; font-size: smaller">&nbsp;-Dbl</div></a>
+                                    <input type="hidden" class="hiddenLunchID" value="@item.Id" />
+                                    <a href="Javascript:;" class="empNameLunch" style="font-size: large; color: gray">@item.Employee.DisplayName-@item.Employee.DispatchNumber (Fire)<div style="font-weight: bold; display: inline-block; font-size: smaller">&nbsp;-Dbl</div></a>
                                     <td class="h-25 pl-2 pr-2 pb-0 pt-0" style="font-size:large; color:gray">@item.EmpPositionNavigation.PositionName</td>
-                                    <td class="h-25 pl-2 pr-2 pb-0 pt-0" style="font-size:large">@item.LunchTime.ToShortTimeString()</td>
+                                    <td class="h-25 pl-2 pr-2 pb-0 pt-0" style="font-size: large; color: gray">@item.LunchTime.ToShortTimeString()</td>
                                     <td class="h-25 pl-2 pr-2 pb-0 pt-0">
                                         <input type="checkbox" value="" id="flexCheckChecked" checked>
                                     </td>
                                 </tr>
                             }
                             @*EMPLOYEE SENT WHILE FIRE IS NOT COUNTED DOUBLE AND 45*@
-                            @if (ViewData["fireCounted"].Equals(false) && item.LongerLunch == true && item.DblLunch == true)
+                            else if (item.LongerLunch == true && item.DblLunch == true)
                             {
                                 <tr style="background-color:lightgray; font-size:large">
                                     <td class="w-75 h-25 p-0">
-                                        <input type="hidden" class="hiddenLunchID" value="@item.Id" />
-                                        <a href="Javascript:;" class="empNameLunch" style="color:gray">@item.Employee.DisplayName-@item.Employee.DispatchNumber<div style="font-weight: bold; display: inline-block; font-size: smaller">&nbsp;-45 -Dbl</div></a>
+                                    <input type="hidden" class="hiddenLunchID" value="@item.Id" />
+                                    <a href="Javascript:;" class="empNameLunch" style="color:gray">@item.Employee.DisplayName-@item.Employee.DispatchNumber (Fire)<div style="font-weight: bold; display: inline-block; font-size: smaller">&nbsp;-45 -Dbl</div></a>
                                     <td class="h-25 pl-2 pr-2 pb-0 pt-0" style="font-size:large; color:gray">@item.EmpPositionNavigation.PositionName</td>
-                                    <td class="h-25 pl-2 pr-2 pb-0 pt-0" style="font-size:large">@item.LunchTime.ToShortTimeString()</td>
+                                    <td class="h-25 pl-2 pr-2 pb-0 pt-0" style="font-size: large; color: gray">@item.LunchTime.ToShortTimeString()</td>
                                     <td class="h-25 pl-2 pr-2 pb-0 pt-0">
                                         <input type="checkbox" value="" id="flexCheckChecked" checked>
                                     </td>
                                 </tr>
                             }
-                            @*EMPLOYEE SENT WHILE FIRE IS NOT COUNTED 45*@
-                            @if (ViewData["fireCounted"].Equals(false) && item.LongerLunch != true && item.DblLunch == true)
-                            {
-                                <tr style="background-color:lightgray; font-size:large">
-                                    <td class="w-75 h-25 p-0">
-                                        <input type="hidden" class="hiddenLunchID" value="@item.Id" />
-                                        <a href="Javascript:;" class="empNameLunch" style="color:gray">@item.Employee.DisplayName-@item.Employee.DispatchNumber<div style="font-weight: bold; display: inline-block; font-size: smaller">&nbsp;-45</div></a>
-                                    <td class="h-25 pl-2 pr-2 pb-0 pt-0" style="font-size:large; color:gray">@item.EmpPositionNavigation.PositionName</td>
-                                    <td class="h-25 pl-2 pr-2 pb-0 pt-0" style="font-size:large">@item.LunchTime.ToShortTimeString()</td>
-                                    <td class="h-25 pl-2 pr-2 pb-0 pt-0">
-                                        <input type="checkbox" value="" id="flexCheckChecked" checked>
-                                    </td>
-                                </tr>
-                            }
-                        }
-
-                        @*EMPLOYEE NOT SENT*@
-                        @if (item.EmpSent != true)
+                        }                        
+                    @*EMPLOYEE NOT SENT*@
+                    @if (item.EmpSent != true)
+                    {
+                        @if (DateTime.Now >= item.LunchTime.AddMinutes(-1) && DateTime.Now <= item.LunchTime.AddMinutes(1))
                         {
-                            @if (DateTime.Now >= item.LunchTime.AddMinutes(-1) && DateTime.Now <= item.LunchTime.AddMinutes(1))
-                            {
-                                @*////EMPLOYEE NOT SENT *****BEFORE***** ONE MINUTE////*@
-                                @if (item.LongerLunch != true && item.DblLunch != true)
-                                {
-                                    <tr class="flashTime" style="background-color:yellow">
-                                        <td class="w-75 h-25 p-0">
-                                            <input type="hidden" class="hiddenLunchID" value="@item.Id" />
-                                            <a href="Javascript:;" class="empNameLunch" style="font-size: large; color: black">@item.Employee.DisplayName-@item.Employee.DispatchNumber</a>
-                                        <td class="h-25 pl-2 pr-2 pb-0 pt-0" style="font-size: large; color: black">@item.EmpPositionNavigation.PositionName</td>
-                                        <td class="h-25 pl-2 pr-2 pb-0 pt-0" style="font-size:large">@item.LunchTime.ToShortTimeString()</td>
-                                        <td class="h-25 pl-2 pr-2 pb-0 pt-0">
-                                            <input class="lunchSent" type="checkbox" value="" id="flexCheckChecked">
-                                        </td>
-                                    </tr>
-                                }
-                                @*Employee not sent one min flash 45*@
-                                @if (item.LongerLunch == true && item.DblLunch != true)
-                                {
-                                    <tr class="flashTime">
-                                        <td class="w-75 h-25 p-0">
-                                            <input type="hidden" class="hiddenLunchID" value="@item.Id" />
-                                            <a href="Javascript:;" class="empNameLunch" style="font-size: large; color: black">@item.Employee.DisplayName-@item.Employee.DispatchNumber<div style="font-weight: bold; display: inline-block; font-size: smaller">&nbsp;-45</div></a>
-                                        <td class="h-25 pl-2 pr-2 pb-0 pt-0" style="font-size: large; color: black">@item.EmpPositionNavigation.PositionName</td>
-                                        <td class="h-25 pl-2 pr-2 pb-0 pt-0" style="font-size:large">@item.LunchTime.ToShortTimeString()</td>
-                                        <td class="h-25 pl-2 pr-2 pb-0 pt-0">
-                                            <input class="lunchSent" type="checkbox" value="" id="flexCheckChecked">
-                                        </td>
-                                    </tr>
-                                }
-                                @*Employee not sent one min flash double*@
-                                @if (item.LongerLunch != true && item.DblLunch == true)
-                                {
-                                    <tr class="flashTime">
-                                        <td class="w-75 h-25 p-0">
-                                            <input type="hidden" class="hiddenLunchID" value="@item.Id" />
-                                            <a href="Javascript:;" class="empNameLunch" style="font-size: large; color: black">@item.Employee.DisplayName-@item.Employee.DispatchNumber<div style="font-weight: bold; display: inline-block; font-size: smaller">&nbsp;-Dbl</div></a>
-                                        <td class="h-25 pl-2 pr-2 pb-0 pt-0" style="font-size: large; color: black">@item.EmpPositionNavigation.PositionName</td>
-                                        <td class="h-25 pl-2 pr-2 pb-0 pt-0" style="font-size:large">@item.LunchTime.ToShortTimeString()</td>
-                                        <td class="h-25 pl-2 pr-2 pb-0 pt-0">
-                                            <input class="lunchSent" type="checkbox" value="" id="flexCheckChecked">
-                                        </td>
-                                    </tr>
-                                }
-                                @*Employee not sent one min flash double and 45*@
-                                @if (item.LongerLunch == true && item.DblLunch == true)
-                                {
-                                    <tr class="flashTime">
-                                        <td class="w-75 h-25 p-0">
-                                            <input type="hidden" class="hiddenLunchID" value="@item.Id" />
-                                            <a href="Javascript:;" class="empNameLunch" style="font-size: large; color: black">@item.Employee.DisplayName-@item.Employee.DispatchNumber<div style="font-weight: bold; display: inline-block; font-size: smaller">&nbsp;-45 -Dbl</div></a>
-                                        <td class="h-25 pl-2 pr-2 pb-0 pt-0" style="font-size: large; color: black">@item.EmpPositionNavigation.PositionName</td>
-                                        <td class="h-25 pl-2 pr-2 pb-0 pt-0" style="font-size:large">@item.LunchTime.ToShortTimeString()</td>
-                                        <td class="h-25 pl-2 pr-2 pb-0 pt-0">
-                                            <input class="lunchSent" type="checkbox" value="" id="flexCheckChecked">
-                                        </td>
-                                    </tr>
-                                }
-                            }
-                            @*////EMPLOYEE NOT SENT AFTER ONE MINUTE////*@
+                            @*////EMPLOYEE NOT SENT *****BEFORE***** ONE MINUTE////*@
                             @if (item.LongerLunch != true && item.DblLunch != true)
                             {
-                                <tr>
+                                <tr class="flashTime">
                                     <td class="w-75 h-25 p-0">
                                         <input type="hidden" class="hiddenLunchID" value="@item.Id" />
                                         <a href="Javascript:;" class="empNameLunch" style="font-size: large; color: black">@item.Employee.DisplayName-@item.Employee.DispatchNumber</a>
-                                    <td class="h-25 pl-2 pr-2 pb-0 pt-0" style="font-size:large; color:black">@item.EmpPositionNavigation.PositionName</td>
+                                    <td class="h-25 pl-2 pr-2 pb-0 pt-0" style="font-size: large; color: black">@item.EmpPositionNavigation.PositionName</td>
                                     <td class="h-25 pl-2 pr-2 pb-0 pt-0" style="font-size:large">@item.LunchTime.ToShortTimeString()</td>
                                     <td class="h-25 pl-2 pr-2 pb-0 pt-0">
                                         <input class="lunchSent" type="checkbox" value="" id="flexCheckChecked">
                                     </td>
-                                </tr>
+                                </tr>                                    
                             }
-                            @*Employee Not Sent 45 lunch*@
-                            @if (item.LongerLunch == true && item.DblLunch != true)
+                            @*Employee not sent one min flash 45*@
+                            else if (item.LongerLunch == true && item.DblLunch != true)
                             {
-                                <tr>
+                                <tr class="flashTime">
                                     <td class="w-75 h-25 p-0">
                                         <input type="hidden" class="hiddenLunchID" value="@item.Id" />
                                         <a href="Javascript:;" class="empNameLunch" style="font-size: large; color: black">@item.Employee.DisplayName-@item.Employee.DispatchNumber<div style="font-weight: bold; display: inline-block; font-size: smaller">&nbsp;-45</div></a>
@@ -358,38 +294,95 @@
                                     <td class="h-25 pl-2 pr-2 pb-0 pt-0">
                                         <input class="lunchSent" type="checkbox" value="" id="flexCheckChecked">
                                     </td>
-                                </tr>
+                                </tr>                                    
                             }
-                            @*Employee Not Sent Double*@
-                            @if (item.LongerLunch != true && item.DblLunch == true)
+                            @*Employee not sent one min flash double*@
+                            else if (item.LongerLunch != true && item.DblLunch == true)
                             {
-                                <tr>
+                                <tr class="flashTime">
                                     <td class="w-75 h-25 p-0">
                                         <input type="hidden" class="hiddenLunchID" value="@item.Id" />
-                                        <a href="Javascript:;" class="empNameLunch" style="font-size: large; color: black">@item.Employee.DisplayName-@item.Employee.DispatchNumber<div style="font-weight:bold; display:inline-block; font-size:smaller">&nbsp;-Dbl</div></a>
+                                        <a href="Javascript:;" class="empNameLunch" style="font-size: large; color: black">@item.Employee.DisplayName-@item.Employee.DispatchNumber<div style="font-weight: bold; display: inline-block; font-size: smaller">&nbsp;-Dbl</div></a>
                                     <td class="h-25 pl-2 pr-2 pb-0 pt-0" style="font-size: large; color: black">@item.EmpPositionNavigation.PositionName</td>
                                     <td class="h-25 pl-2 pr-2 pb-0 pt-0" style="font-size:large">@item.LunchTime.ToShortTimeString()</td>
                                     <td class="h-25 pl-2 pr-2 pb-0 pt-0">
                                         <input class="lunchSent" type="checkbox" value="" id="flexCheckChecked">
                                     </td>
-                                </tr>
+                                </tr>                                    
                             }
-                            @*Employee Not Sent Double and 45*@
-                            @if (item.LongerLunch == true && item.DblLunch == true)
+                            @*Employee not sent one min flash double and 45*@
+                            else if (item.LongerLunch == true && item.DblLunch == true)
                             {
-                                <tr>
+                                <tr class="flashTime">
                                     <td class="w-75 h-25 p-0">
                                         <input type="hidden" class="hiddenLunchID" value="@item.Id" />
-                                        <a href="Javascript:;" class="empNameLunch" style="font-size: large; color: black">@item.Employee.DisplayName-@item.Employee.DispatchNumber<div style="font-weight:bold; display:inline-block; font-size:smaller">&nbsp;-45-Dbl</div></a>
+                                        <a href="Javascript:;" class="empNameLunch" style="font-size: large; color: black">@item.Employee.DisplayName-@item.Employee.DispatchNumber<div style="font-weight: bold; display: inline-block; font-size: smaller">&nbsp;-45 -Dbl</div></a>
                                     <td class="h-25 pl-2 pr-2 pb-0 pt-0" style="font-size: large; color: black">@item.EmpPositionNavigation.PositionName</td>
                                     <td class="h-25 pl-2 pr-2 pb-0 pt-0" style="font-size:large">@item.LunchTime.ToShortTimeString()</td>
                                     <td class="h-25 pl-2 pr-2 pb-0 pt-0">
                                         <input class="lunchSent" type="checkbox" value="" id="flexCheckChecked">
                                     </td>
-                                </tr>
+                                </tr>                                    
                             }
                         }
+                        @*////EMPLOYEE NOT SENT AFTER ONE MINUTE////*@
+                        else if (item.LongerLunch != true && item.DblLunch != true)
+                        {
+                            <tr>
+                                <td class="w-75 h-25 p-0">
+                                    <input type="hidden" class="hiddenLunchID" value="@item.Id" />
+                                    <a href="Javascript:;" class="empNameLunch" style="font-size: large; color: black">@item.Employee.DisplayName-@item.Employee.DispatchNumber</a>
+                                <td class="h-25 pl-2 pr-2 pb-0 pt-0" style="font-size:large; color:black">@item.EmpPositionNavigation.PositionName</td>
+                                <td class="h-25 pl-2 pr-2 pb-0 pt-0" style="font-size:large">@item.LunchTime.ToShortTimeString()</td>
+                                <td class="h-25 pl-2 pr-2 pb-0 pt-0">
+                                    <input class="lunchSent" type="checkbox" value="" id="flexCheckChecked">
+                                </td>
+                            </tr>                                
+                        }
+                        @*Employee Not Sent 45 lunch*@
+                        else if (item.LongerLunch == true && item.DblLunch != true)
+                        {
+                            <tr>
+                                <td class="w-75 h-25 p-0">
+                                    <input type="hidden" class="hiddenLunchID" value="@item.Id" />
+                                    <a href="Javascript:;" class="empNameLunch" style="font-size: large; color: black">@item.Employee.DisplayName-@item.Employee.DispatchNumber<div style="font-weight: bold; display: inline-block; font-size: smaller">&nbsp;-45</div></a>
+                                <td class="h-25 pl-2 pr-2 pb-0 pt-0" style="font-size: large; color: black">@item.EmpPositionNavigation.PositionName</td>
+                                <td class="h-25 pl-2 pr-2 pb-0 pt-0" style="font-size:large">@item.LunchTime.ToShortTimeString()</td>
+                                <td class="h-25 pl-2 pr-2 pb-0 pt-0">
+                                    <input class="lunchSent" type="checkbox" value="" id="flexCheckChecked">
+                                </td>
+                            </tr>                                
+                        }
+                        @*Employee Not Sent Double*@
+                        else if (item.LongerLunch != true && item.DblLunch == true)
+                        {
+                            <tr style="background-color:yellow">
+                                <td class="w-75 h-25 p-0">
+                                    <input type="hidden" class="hiddenLunchID" value="@item.Id" />
+                                    <a href="Javascript:;" class="empNameLunch" style="font-size: large; color: black">@item.Employee.DisplayName-@item.Employee.DispatchNumber<div style="font-weight:bold; display:inline-block; font-size:smaller">&nbsp;-Dbl</div></a>
+                                <td class="h-25 pl-2 pr-2 pb-0 pt-0" style="font-size: large; color: black">@item.EmpPositionNavigation.PositionName</td>
+                                <td class="h-25 pl-2 pr-2 pb-0 pt-0" style="font-size:large">@item.LunchTime.ToShortTimeString()</td>
+                                <td class="h-25 pl-2 pr-2 pb-0 pt-0">
+                                    <input class="lunchSent" type="checkbox" value="" id="flexCheckChecked">
+                                </td>
+                            </tr>                                
+                        }
+                        @*Employee Not Sent Double and 45*@
+                        else if (item.LongerLunch == true && item.DblLunch == true)
+                        {
+                            <tr style="background-color:yellow">
+                                <td class="w-75 h-25 p-0">
+                                    <input type="hidden" class="hiddenLunchID" value="@item.Id" />
+                                    <a href="Javascript:;" class="empNameLunch" style="font-size: large; color: black">@item.Employee.DisplayName-@item.Employee.DispatchNumber<div style="font-weight:bold; display:inline-block; font-size:smaller">&nbsp;-45-Dbl</div></a>
+                                <td class="h-25 pl-2 pr-2 pb-0 pt-0" style="font-size: large; color: black">@item.EmpPositionNavigation.PositionName</td>
+                                <td class="h-25 pl-2 pr-2 pb-0 pt-0" style="font-size:large">@item.LunchTime.ToShortTimeString()</td>
+                                <td class="h-25 pl-2 pr-2 pb-0 pt-0">
+                                    <input class="lunchSent" type="checkbox" value="" id="flexCheckChecked">
+                                </td>
+                            </tr>                                
+                        }
                     }
+                }
                 </tbody>
             </table>
         </div>

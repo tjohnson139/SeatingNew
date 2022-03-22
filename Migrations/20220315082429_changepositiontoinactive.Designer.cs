@@ -10,8 +10,8 @@ using Seating.Models;
 namespace Seating.Migrations
 {
     [DbContext(typeof(db_a7e17a_seatingContext))]
-    [Migration("20220308033204_activePositiondoubleLunch")]
-    partial class activePositiondoubleLunch
+    [Migration("20220315082429_changepositiontoinactive")]
+    partial class changepositiontoinactive
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -184,11 +184,11 @@ namespace Seating.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("PositionName")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<bool>("Inactive")
                         .HasColumnType("bit");
+
+                    b.Property<string>("PositionName")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 

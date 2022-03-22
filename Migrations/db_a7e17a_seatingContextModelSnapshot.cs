@@ -185,7 +185,7 @@ namespace Seating.Migrations
                     b.Property<string>("PositionName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("isActive")
+                    b.Property<bool>("Inactive")
                         .HasColumnType("bit");
 
                     b.HasKey("Id");

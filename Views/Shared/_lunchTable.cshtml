@@ -1,0 +1,610 @@
+﻿@model Seating.ViewModels.ListsVM
+
+@{
+    Layout = null;
+    var dt = DateTime.Now;
+    bool match0830 = false;
+    bool match0900 = false;
+    bool match0930 = false;
+    bool match1000 = false;
+    bool match1030 = false;
+    bool match1100 = false;
+    bool match1130 = false;
+    bool match1200 = false;
+    bool match1230 = false;
+    bool match1300 = false;
+    bool match1330 = false;
+    bool match1400 = false;
+    bool match1430 = false;
+    bool match1500 = false;
+    bool match1530 = false;
+    bool match1600 = false;
+    bool match1630 = false;
+    bool match1700 = false;
+    bool match1730 = false;
+    bool match1800 = false;
+    bool match1830 = false;
+    bool match1900 = false;
+    bool match1930 = false;
+    bool match2000 = false;
+    bool match2030 = false;
+    bool match2100 = false;
+    bool match2130 = false;
+    bool match2200 = false;
+    bool match2230 = false;
+    bool match2300 = false;
+    bool match2330 = false;
+    bool match0000 = false;
+    bool match0030 = false;
+    bool match0100 = false;
+    bool match0130 = false;
+    bool match0200 = false;
+    bool match0230 = false;
+    bool match0300 = false;
+    bool match0330 = false;
+    bool match0400 = false;
+    bool match0430 = false;
+
+    foreach (var lunchTime in Model.Lunches)
+    {
+        if (lunchTime.LunchTime.ToString("HH:mm") == "08:30")
+        {
+            match0830 = true;
+        }
+        if (lunchTime.LunchTime.ToString("HH:mm") == "09:00")
+        {
+            match0900 = true;
+        }
+        if (lunchTime.LunchTime.ToString("HH:mm") == "09:30")
+        {
+            match0930 = true;
+        }
+        if (lunchTime.LunchTime.ToString("HH:mm") == "10:00")
+        {
+            match1000 = true;
+        }
+        if (lunchTime.LunchTime.ToString("HH:mm") == "10:30")
+        {
+            match1030 = true;
+        }
+        if (lunchTime.LunchTime.ToString("HH:mm") == "11:00")
+        {
+            match1100 = true;
+        }
+        if (lunchTime.LunchTime.ToString("HH:mm") == "11:30")
+        {
+            match1130 = true;
+        }
+        if (lunchTime.LunchTime.ToString("HH:mm") == "12:00")
+        {
+            match1200 = true;
+        }
+        if (lunchTime.LunchTime.ToString("HH:mm") == "12:30")
+        {
+            match1230 = true;
+        }
+        if (lunchTime.LunchTime.ToString("HH:mm") == "13:00")
+        {
+            match1300 = true;
+        }
+        if (lunchTime.LunchTime.ToString("HH:mm") == "13:30")
+        {
+            match1330 = true;
+        }
+        if (lunchTime.LunchTime.ToString("HH:mm") == "14:00")
+        {
+            match1400 = true;
+        }
+        if (lunchTime.LunchTime.ToString("HH:mm") == "14:30")
+        {
+            match1430 = true;
+        }
+        if (lunchTime.LunchTime.ToString("HH:mm") == "15:00")
+        {
+            match1500 = true;
+        }
+        if (lunchTime.LunchTime.ToString("HH:mm") == "15:30")
+        {
+            match1530 = true;
+        }
+        if (lunchTime.LunchTime.ToString("HH:mm") == "16:00")
+        {
+            match1600 = true;
+        }
+        if (lunchTime.LunchTime.ToString("HH:mm") == "16:30")
+        {
+            match1630 = true;
+        }
+        if (lunchTime.LunchTime.ToString("HH:mm") == "17:00")
+        {
+            match1700 = true;
+        }
+        if (lunchTime.LunchTime.ToString("HH:mm") == "17:30")
+        {
+            match1730 = true;
+        }
+        if (lunchTime.LunchTime.ToString("HH:mm") == "18:00")
+        {
+            match1800 = true;
+        }
+        if (lunchTime.LunchTime.ToString("HH:mm") == "18:30")
+        {
+            match1830 = true;
+        }
+        if (lunchTime.LunchTime.ToString("HH:mm") == "19:00")
+        {
+            match1900 = true;
+        }
+        if (lunchTime.LunchTime.ToString("HH:mm") == "19:30")
+        {
+            match1930 = true;
+        }
+        if (lunchTime.LunchTime.ToString("HH:mm") == "20:00")
+        {
+            match2000 = true;
+        }
+        if (lunchTime.LunchTime.ToString("HH:mm") == "20:30")
+        {
+            match2030 = true;
+        }
+        if (lunchTime.LunchTime.ToString("HH:mm") == "21:00")
+        {
+            match2100 = true;
+        }
+        if (lunchTime.LunchTime.ToString("HH:mm") == "21:30")
+        {
+            match2130 = true;
+        }
+        if (lunchTime.LunchTime.ToString("HH:mm") == "22:00")
+        {
+            match2200 = true;
+        }
+        if (lunchTime.LunchTime.ToString("HH:mm") == "22:30")
+        {
+            match2230 = true;
+        }
+        if (lunchTime.LunchTime.ToString("HH:mm") == "23:00")
+        {
+            match2300 = true;
+        }
+        if (lunchTime.LunchTime.ToString("HH:mm") == "23:30")
+        {
+            match2330 = true;
+        }
+        if (lunchTime.LunchTime.ToString("HH:mm") == "00:00")
+        {
+            match0000 = true;
+        }
+        if (lunchTime.LunchTime.ToString("HH:mm") == "00:30")
+        {
+            match0030 = true;
+        }
+        if (lunchTime.LunchTime.ToString("HH:mm") == "01:00")
+        {
+            match0100 = true;
+        }
+        if (lunchTime.LunchTime.ToString("HH:mm") == "01:30")
+        {
+            match0130 = true;
+        }
+        if (lunchTime.LunchTime.ToString("HH:mm") == "02:00")
+        {
+            match0200 = true;
+        }
+        if (lunchTime.LunchTime.ToString("HH:mm") == "02:30")
+        {
+            match0230 = true;
+        }
+        if (lunchTime.LunchTime.ToString("HH:mm") == "03:00")
+        {
+            match0300 = true;
+        }
+        if (lunchTime.LunchTime.ToString("HH:mm") == "03:30")
+        {
+            match0330 = true;
+        }
+        if (lunchTime.LunchTime.ToString("HH:mm") == "04:00")
+        {
+            match0400 = true;
+        }
+        if (lunchTime.LunchTime.ToString("HH:mm") == "04:30")
+        {
+            match0430 = true;
+        }
+    }
+
+
+    <link href='https://fonts.googleapis.com/css?family=Alegreya Sans SC' rel='stylesheet'>
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"]</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather+Sans:ital,wght@1,500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@1,500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+    <div style="margin:5rem;">
+        <div id="instructions" style="margin-top:0em;">
+            <h1 style="text-align:center; font-family: 'Alegreya Sans SC';">Lunch List Entry</h1>
+            <h3 style="text-align:center; font-family: 'Alegreya Sans SC'; color:red">Always take a spot designated for your assigned shift</h3>
+            <h6 style="text-align:center; font-family: 'Alegreya Sans SC';">You may double up on lunches when there are three reliefs or with lead permission</h6>
+        </div>
+        <table class="table">
+            <thead style="text-align:center">
+                <tr>
+                    <th scope="row">0400 - 1400</th>
+                    <th scope="col">0600 - 1600</th>
+                    <th scope="col">0800 - 1800</th>
+                    <th scope="col">1000 - 2000</th>
+                    <th scope="col">1200 - 2200</th>
+                    <th scope="row">1400 - 0000</th>
+                    <th scope="col">1600 - 0200</th>
+                    <th scope="col">1800 - 0400</th>
+                    <th scope="col">2000 - 0600</th>
+                    <th scope="col">2200 - 0800</th>
+                </tr>
+            </thead>
+            <tbody style="text-align:center">
+                <tr>
+                    @if (match0830 == true)
+                    {
+                        <td class="lunchTaken">08:30</td>
+                    }
+                    else
+                    {
+                        <td>08:30</td>
+                    }
+                    @if (match1030 == true)
+                    {
+                        <td class="lunchTaken">10:30</td>
+                    }
+                    else
+                    {
+                        <td>10:30</td>
+                    }
+                    @if (match1230 == true)
+                    {
+                        <td class="lunchTaken">12:30</td>
+                    }
+                    else
+                    {
+                        <td>12:30</td>
+                    }
+                    @if (match1500 == true)
+                    {
+                        <td class="lunchTaken">15:00</td>
+                    }
+                    else
+                    {
+                        <td>15:00</td>
+                    }
+                    @if (match1700 == true)
+                    {
+                        <td class="lunchTaken">17:00</td>
+                    }
+                    else
+                    {
+                        <td>17:00</td>
+                    }
+                    @if (match1830 == true)
+                    {
+                        <td class="lunchTaken">18:30</td>
+                    }
+                    else
+                    {
+                        <td>18:30</td>
+                    }
+                    @if (match2030 == true)
+                    {
+                        <td class="lunchTaken">20:30</td>
+                    }
+                    else
+                    {
+                        <td>20:30</td>
+                    }
+                    @if (match2230 == true)
+                    {
+                        <td class="lunchTaken">22:30</td>
+                    }
+                    else
+                    {
+                        <td>22:30</td>
+                    }
+                    @if (match0100 == true)
+                    {
+                        <td class="lunchTaken">01:00</td>
+                    }
+                    else
+                    {
+                        <td>01:00</td>
+                    }
+                    @if (match0330 == true)
+                    {
+                        <td class="lunchTaken">03:30</td>
+                    }
+                    else
+                    {
+                        <td>03:30</td>
+                    }
+                </tr>
+                <tr>
+                    @if (match0900 == true)
+                    {
+                        <td class="lunchTaken">09:00</td>
+                    }
+                    else
+                    {
+                        <td>09:00</td>
+                    }
+                    @if (match1100 == true)
+                    {
+                        <td class="lunchTaken">11:00</td>
+                    }
+                    else
+                    {
+                        <td>11:00</td>
+                    }
+                    @if (match1300 == true)
+                    {
+                        <td class="lunchTaken">13:00</td>
+                    }
+                    else
+                    {
+                        <td>13:00</td>
+                    }
+                    @if (match1530 == true)
+                    {
+                        <td class="lunchTaken">15:30</td>
+                    }
+                    else
+                    {
+                        <td>15:30</td>
+                    }
+                    @if (match1730 == true)
+                    {
+                        <td class="lunchTaken">17:30</td>
+                    }
+                    else
+                    {
+                        <td>17:30</td>
+                    }
+                    @if (match1900 == true)
+                    {
+                        <td class="lunchTaken">19:00</td>
+                    }
+                    else
+                    {
+                        <td>19:00</td>
+                    }
+                    @if (match2100 == true)
+                    {
+                        <td class="lunchTaken">21:00</td>
+                    }
+                    else
+                    {
+                        <td>21:00</td>
+                    }
+                    @if (match2300 == true)
+                    {
+                        <td class="lunchTaken">23:00</td>
+                    }
+                    else
+                    {
+                        <td>23:00</td>
+                    }
+                    @if (match0130 == true)
+                    {
+                        <td class="lunchTaken">01:30</td>
+                    }
+                    else
+                    {
+                        <td>01:30</td>
+                    }
+                    @if (match0400 == true)
+                    {
+                        <td class="lunchTaken">04:00</td>
+                    }
+                    else
+                    {
+                        <td>04:00</td>
+                    }
+                </tr>
+                <tr>
+                    @if (match0930 == true)
+                    {
+                        <td class="lunchTaken">09:30</td>
+                    }
+                    else
+                    {
+                        <td>09:30</td>
+                    }
+                    @if (match1130 == true)
+                    {
+                        <td class="lunchTaken">11:30</td>
+                    }
+                    else
+                    {
+                        <td>11:30</td>
+                    }
+                    @if (match1330 == true)
+                    {
+                        <td class="lunchTaken">13:30</td>
+                    }
+                    else
+                    {
+                        <td>13:30</td>
+                    }
+                    @if (match1600 == true)
+                    {
+                        <td class="lunchTaken">16:00</td>
+                    }
+                    else
+                    {
+                        <td>16:00</td>
+                    }
+                    @if (match1800 == true)
+                    {
+                        <td class="lunchTaken">18:00</td>
+                    }
+                    else
+                    {
+                        <td>18:00</td>
+                    }
+                    @if (match1930 == true)
+                    {
+                        <td class="lunchTaken">19:30</td>
+                    }
+                    else
+                    {
+                        <td>19:30</td>
+                    }
+                    @if (match2130 == true)
+                    {
+                        <td class="lunchTaken">21:30</td>
+                    }
+                    else
+                    {
+                        <td>21:30</td>
+                    }
+                    @if (match2330 == true)
+                    {
+                        <td class="lunchTaken">23:30</td>
+                    }
+                    else
+                    {
+                        <td>23:30</td>
+                    }
+                    @if (match0200 == true)
+                    {
+                        <td class="lunchTaken">02:00</td>
+                    }
+                    else
+                    {
+                        <td>02:00</td>
+                    }
+                    @if (match0430 == true)
+                    {
+                        <td class="lunchTaken">04:30</td>
+                    }
+                    else
+                    {
+                        <td>04:30</td>
+                    }
+                </tr>
+                <tr>
+                    @if (match1000 == true)
+                    {
+                        <td class="lunchTaken">10:00</td>
+                    }
+                    else
+                    {
+                        <td>10:00</td>
+                    }
+                    @if (match1200 == true)
+                    {
+                        <td class="lunchTaken">12:00</td>
+                    }
+                    else
+                    {
+                        <td>12:00</td>
+                    }
+                    @if (match1400 == true)
+                    {
+                        <td class="lunchTaken">14:00</td>
+                    }
+                    else
+                    {
+                        <td>14:00</td>
+                    }
+                    @if (match1630 == true)
+                    {
+                        <td class="lunchTaken">16:30</td>
+                    }
+                    else
+                    {
+                        <td>16:30</td>
+                    }
+                    <td>-----</td>
+                    @if (match2000 == true)
+                    {
+                        <td class="lunchTaken">20:00</td>
+                    }
+                    else
+                    {
+                        <td>20:00</td>
+                    }
+                    @if (match2200 == true)
+                    {
+                        <td class="lunchTaken">22:00</td>
+                    }
+                    else
+                    {
+                        <td>22:00</td>
+                    }
+                    @if (match0000 == true)
+                    {
+                        <td class="lunchTaken">00:00</td>
+                    }
+                    else
+                    {
+                        <td>00:00</td>
+                    }
+                    @if (match0230 == true)
+                    {
+                        <td class="lunchTaken">02:30</td>
+                    }
+                    else
+                    {
+                        <td>02:30</td>
+                    }
+                    <td>-----</td>
+                </tr>
+                <tr>
+                    <td>-----</td>
+                    <td>-----</td>
+                    @if (match1430 == true)
+                    {
+                        <td class="lunchTaken">14:30</td>
+                    }
+                    else
+                    {
+                        <td>14:30</td>
+                    }
+                    <td>-----</td>
+                    <td>-----</td>
+                    <td>-----</td>
+                    <td>-----</td>
+                    @if (match0030 == true)
+                    {
+                        <td class="lunchTaken">00:30</td>
+                    }
+                    else
+                    {
+                        <td>00:30</td>
+                    }
+                    @if (match0300 == true)
+                    {
+                        <td class="lunchTaken">03:00</td>
+                    }
+                    else
+                    {
+                        <td>03:00</td>
+                    }
+                    <td>-----</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

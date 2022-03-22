@@ -1,6 +1,7 @@
 ﻿@model Seating.ViewModels.ListsVM 
 
-<form asp-controller="Home" asp-action="CreateLunchMainPage" class="DthdropdownGroup ml-3" style="margin-top:-.40rem">
+<h3 style="margin-left:7rem; margin-bottom:1rem">Sign Up</h3>
+<form asp-controller="Home" asp-action="CreateLunchPage" class="DthdropdownGroup ml-3">
     <div class="btn-group" style="margin-left:.3rem;">
         <select class="form-group btn- btn-sm dropdown-toggle d-inline-block pr-1 btn-outline-light" style="color:black; font-family: 'Roboto', sans-serif; font-size: 16px; width: 8.5em; padding-left: .2rem; background-color: whitesmoke" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="EmployeeId" asp-for="EmployeeId">
             <option>Dispatcher</option>
@@ -150,4 +151,3 @@
 
     <button type="submit" class="dropdownStyling btn btn-sm btn-block btn-outline-light" style="margin-left:-.5rem; margin-bottom: .5rem; width: 19rem; margin-top:-.5rem">Submit</button>
 </form>
-<a style="margin-left: 6.5rem;" asp-action="Lunch">Main Lunch Page</a>

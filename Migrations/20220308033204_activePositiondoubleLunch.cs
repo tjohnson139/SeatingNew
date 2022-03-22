@@ -7,7 +7,7 @@ namespace Seating.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AddColumn<bool>(
-                name: "isActive",
+                name: "Inactive",
                 table: "Positions",
                 type: "bit",
                 nullable: false,
@@ -23,7 +23,7 @@ namespace Seating.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropColumn(
-                name: "isActive",
+                name: "Inactive",
                 table: "Positions");
 
             migrationBuilder.DropColumn(

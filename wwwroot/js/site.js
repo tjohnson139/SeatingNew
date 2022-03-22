@@ -44,11 +44,7 @@ $(document).on("click", ".dthSent", function () {
         dataType: 'json',
         data: { "Id": $(this).closest("tr").find(".hiddenDthID").val() },
         success: function () {
-            $(" #headerRefresh ").load(window.location.href + " #headerRefresh ");
-            $(" .dthRefresh ").load(window.location.href + " .dthRefresh ");
-            $(" .breakRefresh ").load(window.location.href + " .breakRefresh ");
-            $(" .lunchRefresh ").load(window.location.href + " .lunchRefresh ");
-            $(" .audioAlert ").load(window.location.href + " .audioAlert ");
+            RefreshDropDownsPartial();
         },
     });
 });
@@ -80,11 +76,7 @@ $(document).on("click", ".empNameDth", function () {
                             timer: 0850,
 
                         })
-                        $(" #headerRefresh ").load(window.location.href + " #headerRefresh ");
-                        $(" .dthRefresh ").load(window.location.href + " .dthRefresh ");
-                        $(" .breakRefresh ").load(window.location.href + " .breakRefresh ");
-                        $(" .lunchRefresh ").load(window.location.href + " .lunchRefresh ");
-                        $(" .audioAlert ").load(window.location.href + " .audioAlert ");
+                        RefreshDropDownsPartial();
                     }
                     else {
                         Swal.fire({
@@ -114,11 +106,7 @@ $(document).on("click", ".BreakSent", function () {
         dataType: 'json',
         data: { "Id": $(this).closest("tr").find(".hiddenBreakID").val() },
         success: function () {
-            $(" #headerRefresh ").load(window.location.href + " #headerRefresh ");
-            $(" .dthRefresh ").load(window.location.href + " .dthRefresh ");
-            $(" .breakRefresh ").load(window.location.href + " .breakRefresh ");
-            $(" .lunchRefresh ").load(window.location.href + " .lunchRefresh ");
-            $(" .audioAlert ").load(window.location.href + " .audioAlert ");
+            RefreshDropDownsPartial();
         },
     });
 });
@@ -150,11 +138,7 @@ $(document).on("click", ".empNameBreak", function () {
                             timer: 0850,
 
                         })
-                        $(" #headerRefresh ").load(window.location.href + " #headerRefresh ");
-                        $(" .dthRefresh ").load(window.location.href + " .dthRefresh ");
-                        $(" .breakRefresh ").load(window.location.href + " .breakRefresh ");
-                        $(" .lunchRefresh ").load(window.location.href + " .lunchRefresh ");
-                        $(" .audioAlert ").load(window.location.href + " .audioAlert ");
+                        RefreshDropDownsPartial();
                     }
                     else {
                         Swal.fire({
@@ -185,11 +169,7 @@ $(document).on("click", ".lunchSent", function () {
         dataType: 'json',
         data: { "Id": $(this).closest("tr").find(".hiddenLunchID").val() },
         success: function () {
-            $(" #headerRefresh ").load(window.location.href + " #headerRefresh ");
-            $(" .dthRefresh ").load(window.location.href + " .dthRefresh ");
-            $(" .breakRefresh ").load(window.location.href + " .breakRefresh ");
-            $(" .lunchRefresh ").load(window.location.href + " .lunchRefresh ");
-            $(" .audioAlert ").load(window.location.href + " .audioAlert ");
+            RefreshDropDownsPartial();
         },
     });
 });
@@ -221,11 +201,7 @@ $(document).on("click", ".empNameLunch", function () {
                             timer: 0850,
 
                         })
-                        $(" #headerRefresh ").load(window.location.href + " #headerRefresh ");
-                        $(" .dthRefresh ").load(window.location.href + " .dthRefresh ");
-                        $(" .breakRefresh ").load(window.location.href + " .breakRefresh ");
-                        $(" .lunchRefresh ").load(window.location.href + " .lunchRefresh ");
-                        $(" .audioAlert ").load(window.location.href + " .audioAlert ");
+                        RefreshDropDownsPartial();
                     }
                     else {
                         Swal.fire({

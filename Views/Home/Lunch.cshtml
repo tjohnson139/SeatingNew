@@ -1,0 +1,20 @@
+﻿@model Seating.ViewModels.ListsVM
+
+@{
+    Layout = null;
+    ViewData["Title"] = "Home Page";
+}
+
+@await Html.PartialAsync("../Shared/_LunchTable")
+
+<div id="mainOverrideDropdowns" style="width:30rem; margin-left:15rem; margin-top:-3rem">
+    @await Html.PartialAsync("../Shared/_LunchPageOverride")
+</div>
+
+<div id="mainDropdowns" style="width:30rem; margin-left:49rem; margin-top:-15rem">
+    @await Html.PartialAsync("../Shared/_LunchPageDropdowns")
+</div>
+
+<div id="mainLunchList" style="width:30rem; margin-left:82rem; margin-top:-11.5rem">
+    @await Html.PartialAsync("../Shared/_LunchPageList")
+</div>
