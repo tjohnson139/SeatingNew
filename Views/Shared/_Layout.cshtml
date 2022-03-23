@@ -3,7 +3,9 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"]</title>
+        <title>WCCCA Seating Chart</title>
+    <link rel="icon" href="~/Content/Photos/WCCCA.jpg"
+          type="image/x-icon">
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
@@ -17,30 +19,19 @@
 <body>
     <header style="background-color:steelblue; width:150%">
         @*Alert Volume Switch*@
-        @*<div class="alert-switch d-inline-block mt-3" style="margin-left:2rem" id="alertSwitch">
-            <h6 style="color:white">Audible Alerts</h6>
-            <span class="switch-toggle" id="audibleAlert">
+          <div class="alert-switch d-inline-block mt-3" style="margin-left:2rem" id="alertswitch">
+            <h6 style="color:white">audible alerts</h6>
+            <span class="switch-toggle" id="audiblealert">
                 <input type="checkbox" id="bluetooth">
                 <label for="bluetooth"></label>
             </span>
-        </div>*@
+        </div>
         <div class="d-inline-block" id="headerRefresh">
             <div class="d-inline-block" style="margin-left:18rem; margin-right:18rem;">
-                @if (Convert.ToDouble(ViewData["offFloor"]) == 3)
-                {
-                    <span class="navbar-brand autoRefresh mr-0" style="color: white; font-family: 'Merriweather Sans', sans-serif;"><span class="offFloor" style="font-size: 50px; font-weight: bold; color: yellow; text-shadow: -1px 1px 2px black">@ViewData["offFloor"]</span> off the floor</span>
-                }
-                else if (Convert.ToDouble(ViewData["offFloor"]) > 3)
-                {
-                    <span class="navbar-brand autoRefresh mr-0" style="color: white; font-family: 'Merriweather Sans', sans-serif;"><span class="offFloor" style="font-size: 50px; font-weight: bold; color: red; text-shadow: -1px 1px 2px white">@ViewData["offFloor"]</span> off the floor</span>
-                }
-                else
-                {
-                    <span class="navbar-brand autoRefresh mr-0" style="color: white; font-family: 'Merriweather Sans', sans-serif;"><span class="offFloor" style="font-size: 50px; font-weight: bold">@ViewData["offFloor"]</span> off the floor</span>
-                }
+            <span class="navbar-brand autoRefresh mr-0" style="color: white; font-family: 'Merriweather Sans', sans-serif;"><span class="offFloor" style="font-size: 50px; font-weight: bold">@ViewData["offFloor"]</span> off the floor</span>
             </div>
         </div>
-        <span class="d-inline-block" style="color:white; font-family: 'Quicksand', sans-serif;">Login</span>
+        <a asp-area="Identity" asp-page="/Account/Login" class="d-inline-block nav-link" style="color:white; font-family: 'Quicksand', sans-serif;">Login</a>
     </header>
     <div>
         <main role="main" class="ml-3">

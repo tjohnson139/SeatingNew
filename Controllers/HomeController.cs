@@ -986,6 +986,22 @@ namespace Seating.Controllers
             }
         }
 
+        [HttpPost]
+        public async Task<ActionResult> cancelDthSent(int Id)
+        {
+            try
+            {
+                Dth dths = _context.Dths.Find(Id);
+                dths.EmpSent = false;
+                await _context.SaveChangesAsync();
+
+                return Json(new { success = true, });
+            }
+            catch (Exception)
+            {
+                return Json(new { success = false });
+            }
+        }
 
         //Delete//
         [HttpPost]
@@ -1033,6 +1049,23 @@ namespace Seating.Controllers
             {
                 Break @break = _context.Breaks.Find(Id);
                 @break.EmpSent = true;
+                await _context.SaveChangesAsync();
+
+                return Json(new { success = true, });
+            }
+            catch (Exception)
+            {
+                return Json(new { success = false });
+            }
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> cancelBreakSent(int Id)
+        {
+            try
+            {
+                Break breaks = _context.Breaks.Find(Id);
+                breaks.EmpSent = false;
                 await _context.SaveChangesAsync();
 
                 return Json(new { success = true, });
@@ -1092,6 +1125,23 @@ namespace Seating.Controllers
             {
                 Lunch lunch = _context.Lunches.Find(Id);
                 lunch.EmpSent = true;
+                await _context.SaveChangesAsync();
+
+                return Json(new { success = true, });
+            }
+            catch (Exception)
+            {
+                return Json(new { success = false });
+            }
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> cancelLunchSent(int Id)
+        {
+            try
+            {
+                Lunch lunches = _context.Lunches.Find(Id);
+                lunches.EmpSent = false;
                 await _context.SaveChangesAsync();
 
                 return Json(new { success = true, });
@@ -2039,6 +2089,6 @@ namespace Seating.Controllers
 
             return View(lunch);
             
-        }        
+        }
     }
 }

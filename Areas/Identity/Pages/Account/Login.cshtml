@@ -1,0 +1,52 @@
+﻿@page
+@model LoginModel
+
+@{
+    Layout = null;
+}
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300&display=swap" rel="stylesheet">
+
+
+<h1>@ViewData["Title"]</h1>
+<div style="background-color:darkred; height:20rem;">
+    <img src="~/Content/Photos/WCCCA.jpg" alt="WCCCA Logo" class="brand-image elevation-3"
+        style="height:150px; width:250px; margin-right:1em; margin-top:3rem; margin-left:48rem; border:solid; border-color:white">
+        <h1 style="color:white;margin-left:45rem; margin-top:2rem; font-family: 'Rubik', sans-serif; background-color:darkred">Supervisor / Lead Login</h1>
+</div>
+<div class="row" style="margin-left:40rem">
+    <div>
+        <section>
+            <form id="account" method="post">
+                <div asp-validation-summary="All" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="Input.Email"></label>
+                    <input asp-for="Input.Email" class="form-control" />
+                    <span asp-validation-for="Input.Email" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Input.Password"></label>
+                    <input asp-for="Input.Password" class="form-control" />
+                    <span asp-validation-for="Input.Password" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary">Log in</button>
+                </div>
+                <div class="form-group">
+                    <p>
+                        <a id="forgot-password" asp-page="./ForgotPassword">Forgot your password?</a>
+                    </p>
+                    <p>
+                        <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Register as a new user</a>
+                    </p>
+                </div>
+            </form>
+        </section>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

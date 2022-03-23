@@ -49,6 +49,52 @@ $(document).on("click", ".dthSent", function () {
     });
 });
 
+// Dth Back on the floor
+$(document).on("click", ".cancelDthSent", function () {
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "Put back on the floor without removing from the list?",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes'
+    }).then((result) => {
+        if (result.value) {
+            $.ajax({
+                type: "Post",
+                url: "/Home/cancelDthSent",
+                dataType: 'json',
+                data: { "Id": $(this).closest("tr").find(".hiddenDthID").val() },
+                success: function (data) {
+
+                    if (data.success == true) {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Back on the list!',
+                            showConfirmButton: false,
+                            timer: 0850,
+
+                        })
+                        RefreshDropDownsPartial();
+                    }
+                    else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Failure!',
+                            showConfirmButton: false,
+                            timer: 2000,
+                        })
+                    }
+                },
+                error: function () {
+                    alert("Something went wrong.");
+                }
+            });
+        }
+    })
+});
+
 //DTH Removal
 $(document).on("click", ".empNameDth", function () {
     Swal.fire({
@@ -110,6 +156,53 @@ $(document).on("click", ".BreakSent", function () {
         },
     });
 });
+
+// Break Back on the floor
+$(document).on("click", ".cancelBreakSent", function () {
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "Put back on the floor without removing from the list?",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes'
+    }).then((result) => {
+        if (result.value) {
+            $.ajax({
+                type: "Post",
+                url: "/Home/cancelBreakSent",
+                dataType: 'json',
+                data: { "Id": $(this).closest("tr").find(".hiddenBreakID").val() },
+                success: function (data) {
+
+                    if (data.success == true) {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Back on the list!',
+                            showConfirmButton: false,
+                            timer: 0850,
+
+                        })
+                        RefreshDropDownsPartial();
+                    }
+                    else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Failure!',
+                            showConfirmButton: false,
+                            timer: 2000,
+                        })
+                    }
+                },
+                error: function () {
+                    alert("Something went wrong.");
+                }
+            });
+        }
+    })
+});
+
 
 //Break Removal
 $(document).on("click", ".empNameBreak", function () {
@@ -174,7 +267,53 @@ $(document).on("click", ".lunchSent", function () {
     });
 });
 
-//Break Removal
+// Break Back on the floor
+$(document).on("click", ".cancelLunchSent", function () {
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "Put back on the floor without removing from the list?",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes'
+    }).then((result) => {
+        if (result.value) {
+            $.ajax({
+                type: "Post",
+                url: "/Home/cancelLunchSent",
+                dataType: 'json',
+                data: { "Id": $(this).closest("tr").find(".hiddenLunchID").val() },
+                success: function (data) {
+
+                    if (data.success == true) {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Back on the list!',
+                            showConfirmButton: false,
+                            timer: 0850,
+
+                        })
+                        RefreshDropDownsPartial();
+                    }
+                    else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Failure!',
+                            showConfirmButton: false,
+                            timer: 2000,
+                        })
+                    }
+                },
+                error: function () {
+                    alert("Something went wrong.");
+                }
+            });
+        }
+    })
+});
+
+//Lunch Removal
 $(document).on("click", ".empNameLunch", function () {
     Swal.fire({
         title: 'Are you sure?',

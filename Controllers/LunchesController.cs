@@ -47,134 +47,25 @@ namespace Seating
             return View(lunch);
         }
 
-        // GET: Lunches/Create
-        public IActionResult Create()
-        {
-            ViewData["EmpPosition"] = new SelectList(_context.Positions, "Id", "Id");
-            ViewData["EmployeeId"] = new SelectList(_context.Employees, "Id", "DisplayName");
-            ViewData["ReasonId"] = new SelectList(_context.Reasons, "Id", "ReasonName");
-            ViewData["RlfPosition"] = new SelectList(_context.Positions, "Id", "Id");
-            return View();
-        }
-
-        // POST: Lunches/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,TimeEntered,TimeCleared,EmpSent,LunchTime,EmployeeId,ReasonId,EmpPosition,RlfPosition")] Lunch lunch)
-        {
-            if (ModelState.IsValid)
-            {
-                _context.Add(lunch);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            ViewData["EmpPosition"] = new SelectList(_context.Positions, "Id", "Id", lunch.EmpPosition);
-            ViewData["EmployeeId"] = new SelectList(_context.Employees, "Id", "DisplayName", lunch.EmployeeId);
-            ViewData["ReasonId"] = new SelectList(_context.Reasons, "Id", "ReasonName", lunch.ReasonId);
-            ViewData["RlfPosition"] = new SelectList(_context.Positions, "Id", "Id", lunch.RlfPosition);
-            return View(lunch);
-        }
-
-        // GET: Lunches/Edit/5
-        public async Task<IActionResult> Edit(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var lunch = await _context.Lunches.FindAsync(id);
-            if (lunch == null)
-            {
-                return NotFound();
-            }
-            ViewData["EmpPosition"] = new SelectList(_context.Positions, "Id", "Id", lunch.EmpPosition);
-            ViewData["EmployeeId"] = new SelectList(_context.Employees, "Id", "DisplayName", lunch.EmployeeId);
-            ViewData["ReasonId"] = new SelectList(_context.Reasons, "Id", "ReasonName", lunch.ReasonId);
-            ViewData["RlfPosition"] = new SelectList(_context.Positions, "Id", "Id", lunch.RlfPosition);
-            return View(lunch);
-        }
-
-        // POST: Lunches/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,TimeEntered,TimeCleared,EmpSent,LunchTime,EmployeeId,ReasonId,EmpPosition,RlfPosition")] Lunch lunch)
-        {
-            if (id != lunch.Id)
-            {
-                return NotFound();
-            }
-
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(lunch);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!LunchExists(lunch.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            ViewData["EmpPosition"] = new SelectList(_context.Positions, "Id", "Id", lunch.EmpPosition);
-            ViewData["EmployeeId"] = new SelectList(_context.Employees, "Id", "DisplayName", lunch.EmployeeId);
-            ViewData["ReasonId"] = new SelectList(_context.Reasons, "Id", "ReasonName", lunch.ReasonId);
-            ViewData["RlfPosition"] = new SelectList(_context.Positions, "Id", "Id", lunch.RlfPosition);
-            return View(lunch);
-        }
-
         // GET: Lunches/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        [HttpPost]
+        public async Task<ActionResult> DeleteLunch(int Id)
         {
-            if (id == null)
+            try
             {
-                return NotFound();
-            }
+                Lunch lunch = _context.Lunches.Find(Id);
+                lunch.TimeCleared = DateTime.Now;
+                await _context.SaveChangesAsync();
 
-            var lunch = await _context.Lunches
-                .Include(l => l.EmpPositionNavigation)
-                .Include(l => l.Employee)
-                .Include(l => l.Reason)
-                .Include(l => l.RlfPositionNavigation)
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (lunch == null)
+                return Json(new { success = true, });
+            }
+            catch (Exception)
             {
-                return NotFound();
+                return Json(new { success = false });
             }
-
-            return View(lunch);
         }
 
-        // POST: Lunches/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            var lunch = await _context.Lunches.FindAsync(id);
-            _context.Lunches.Remove(lunch);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
 
-        private bool LunchExists(int id)
-        {
-            return _context.Lunches.Any(e => e.Id == id);
-        }
-
-        
         //Populates the dropdown list in the lunch override section of the main lunch page//
         public static List<string> getTimesOver()
         {
