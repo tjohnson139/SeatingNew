@@ -12,7 +12,6 @@ function RefreshDropDownsPartial() {
             $(" .dthRefresh ").load(window.location.href + " .dthRefresh ");
             $(" .breakRefresh ").load(window.location.href + " .breakRefresh ");
             $(" .lunchRefresh ").load(window.location.href + " .lunchRefresh ");
-            $(" .audioAlert ").load(window.location.href + " .audioAlert ");
         },
         error: function () {
 
@@ -24,17 +23,37 @@ window.setInterval(function () {
     RefreshDropDownsPartial();
 }, 4000);
 
-/////////////Alert Toggle Switch///////////////
-$('#bluetooth').change(function () {
-    if (this.checked) {
-        $('#container *').prop('disabled', true);
-    }
-    else {
-        $('#container *').prop('disabled', false);
-    }
-});
 
 ////////////////////Dth Section////////////////////////
+
+//Add Dth
+$(document).on("click", "#dth_submit", function (e) {
+    e.preventDefault();
+    var EmployeeId = Number($("#EmpId").val());
+    var EmpPosition = Number($("#EmployeePosition").val());
+    var json = {
+        EmployeeId: EmployeeId,
+        EmpPosition: EmpPosition
+    };
+    console.log("Model", json);
+    $.ajax({
+        type: "post",
+        url: "/Home/CreateDth",
+        dataType: "json",
+        data: { "json": JSON.stringify(json) },
+        success: function (data) {
+            if (data.success) {
+                $(" #headerRefresh ").load(window.location.href + " #headerRefresh ");
+                $(" #DropDownsPartialDiv ").load(window.location.href + " #DropDownsPartialDiv ");
+            }
+            else
+                alert("Error: Please enter your name AND position");
+        },
+        error: function () {
+            alert("Error: Please enter your name AND position");
+        }
+    });
+});
 
 //Dth Off the floor
 $(document).on("click", ".dthSent", function () {
@@ -44,7 +63,8 @@ $(document).on("click", ".dthSent", function () {
         dataType: 'json',
         data: { "Id": $(this).closest("tr").find(".hiddenDthID").val() },
         success: function () {
-            RefreshDropDownsPartial();
+            $(" #headerRefresh ").load(window.location.href + " #headerRefresh ");
+            $(" #DropDownsPartialDiv ").load(window.location.href + " #DropDownsPartialDiv ");
         },
     });
 });
@@ -76,7 +96,8 @@ $(document).on("click", ".cancelDthSent", function () {
                             timer: 0850,
 
                         })
-                        RefreshDropDownsPartial();
+                        $(" #headerRefresh ").load(window.location.href + " #headerRefresh ");
+                        $(" #DropDownsPartialDiv ").load(window.location.href + " #DropDownsPartialDiv ");
                     }
                     else {
                         Swal.fire({
@@ -122,7 +143,8 @@ $(document).on("click", ".empNameDth", function () {
                             timer: 0850,
 
                         })
-                        RefreshDropDownsPartial();
+                        $(" #headerRefresh ").load(window.location.href + " #headerRefresh ");
+                        $(" #DropDownsPartialDiv ").load(window.location.href + " #DropDownsPartialDiv ");
                     }
                     else {
                         Swal.fire({
@@ -144,6 +166,35 @@ $(document).on("click", ".empNameDth", function () {
 
 ////////////////////Break Section////////////////////////
 
+//Add Break
+$(document).on("click", "#break_submit", function (e) {
+    event.preventDefault();
+    var EmployeeId = Number($("#EmpIdBreak").val());
+    var EmpPosition = Number($("#EmployeePositionBreak").val());
+    var json = {
+        EmployeeId: EmployeeId,
+        EmpPosition: EmpPosition
+    };
+    console.log("Model", json);
+    $.ajax({
+        type: "post",
+        url: "/Home/CreateBreak",
+        dataType: "json",
+        data: { "json": JSON.stringify(json) },
+        success: function (data) {
+            if (data.success) {
+                $(" #headerRefresh ").load(window.location.href + " #headerRefresh ");
+                $(" #DropDownsPartialDiv ").load(window.location.href + " #DropDownsPartialDiv ");
+            }
+            else
+                alert("Error: Please enter your name AND position");
+        },
+        error: function () {
+            alert("Error: Please enter your name AND position");
+        }
+    });
+});
+
 //Break Off the floor
 $(document).on("click", ".BreakSent", function () {
     $.ajax({
@@ -152,7 +203,8 @@ $(document).on("click", ".BreakSent", function () {
         dataType: 'json',
         data: { "Id": $(this).closest("tr").find(".hiddenBreakID").val() },
         success: function () {
-            RefreshDropDownsPartial();
+            $(" #headerRefresh ").load(window.location.href + " #headerRefresh ");
+            $(" #DropDownsPartialDiv ").load(window.location.href + " #DropDownsPartialDiv ");
         },
     });
 });
@@ -184,7 +236,8 @@ $(document).on("click", ".cancelBreakSent", function () {
                             timer: 0850,
 
                         })
-                        RefreshDropDownsPartial();
+                        $(" #headerRefresh ").load(window.location.href + " #headerRefresh ");
+                        $(" #DropDownsPartialDiv ").load(window.location.href + " #DropDownsPartialDiv ");
                     }
                     else {
                         Swal.fire({
@@ -231,7 +284,8 @@ $(document).on("click", ".empNameBreak", function () {
                             timer: 0850,
 
                         })
-                        RefreshDropDownsPartial();
+                        $(" #headerRefresh ").load(window.location.href + " #headerRefresh ");
+                        $(" #DropDownsPartialDiv ").load(window.location.href + " #DropDownsPartialDiv ");
                     }
                     else {
                         Swal.fire({
@@ -254,6 +308,145 @@ $(document).on("click", ".empNameBreak", function () {
 
 ////////////////////Lunch Section////////////////////////
 
+//Create Lunch Main Page
+$(document).on("click", "#lunch_submit", function (e) {
+    e.preventDefault();
+    var EmployeeId = Number($("#EmpIdLunch").val());
+    var EmpPosition = Number($("#EmployeePositionLunch").val());
+    var LunchTime = $("#lunchStartTime").val();
+    var LongerLunch = $('.lunch_45:checkbox:checked').val();
+    var json = {
+        EmployeeId: EmployeeId,
+        EmpPosition: EmpPosition,
+        LunchTime: LunchTime,
+        LongerLunch: LongerLunch
+    };
+    console.log("Model", json);
+    $.ajax({
+        type: "post",
+        url: "/Home/CreateLunch",
+        dataType: "json",
+        data: { "json": JSON.stringify(json) },
+        success: function (data) {
+            if (data.success) {
+                $(" #headerRefresh ").load(window.location.href + " #headerRefresh ");
+                $(" #DropDownsPartialDiv ").load(window.location.href + " #DropDownsPartialDiv ");
+            }
+        },
+        error: function () {
+            Swal.fire({
+                title: 'LUNCH NOT SUBMITTED',
+                imageUrl: 'https://securitygladiators.com/wp-content/uploads/2020/10/a-system-message-addressing-a-critital-error.jpg',
+                imageWidth: 1400,
+                imageHeight: 500,
+                imageAlt: 'Custom image',
+                background: '#FF0000',
+                width: 1200,
+                backdrop: '#FF0000',
+                color: '#f7f7f7',
+            })
+        }
+    });
+});
+
+//Create Lunch Lunch Page
+$(document).on("click", "#lunch_submit_main", function (e) {
+    e.preventDefault();
+    var EmployeeId = Number($("#EmpIdLunch").val());
+    var EmpPosition = Number($("#EmployeePositionLunch").val());
+    var LunchTime = $("#lunchStartTime").val();
+    var LongerLunch = $('.lunch_45:checkbox:checked').val();
+    var json = {
+        EmployeeId: EmployeeId,
+        EmpPosition: EmpPosition,
+        LunchTime: LunchTime,
+        LongerLunch: LongerLunch
+    };
+    console.log("Model", json);
+    $.ajax({
+        type: "post",
+        url: "/Home/CreateLunch",
+        dataType: "json",
+        data: { "json": JSON.stringify(json) },
+        success: function (data) {
+            if (data.success) {
+                if (data.success == true) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'You signed up for lunch!',
+                        showConfirmButton: false,
+                        timer: 20000,
+                    })
+                    window.location.href = "/Home/Lunch";
+                }
+            }
+        },
+        error: function () {
+            Swal.fire({
+                title: 'LUNCH NOT SUBMITTED',
+                imageUrl: 'https://securitygladiators.com/wp-content/uploads/2020/10/a-system-message-addressing-a-critital-error.jpg',
+                imageWidth: 1400,
+                imageHeight: 500,
+                imageAlt: 'Custom image',
+                background: '#FF0000',
+                width: 1200,
+                backdrop: '#FF0000',
+                color: '#f7f7f7',
+            })
+        }
+    });
+});
+
+//Create Override Lunch Page
+$(document).on("click", "#override_submit", function (e) {
+    e.preventDefault();
+    var EmployeeId = Number($("#EmpIdLunch").val());
+    var EmpPosition = Number($("#EmployeePositionLunch").val());
+    var LunchTime = $("#lunchStartTime").val();
+    var LongerLunch = $('.lunch_45:checkbox:checked').val();
+    var DblLunch = $('.lunch_dbl:checkbox:checked').val();
+    var json = {
+        EmployeeId: EmployeeId,
+        EmpPosition: EmpPosition,
+        LunchTime: LunchTime,
+        LongerLunch: LongerLunch,
+        DblLunch: DblLunch
+    };
+    console.log("Model", json);
+    $.ajax({
+        type: "post",
+        url: "/Home/CreateOverrideLunch",
+        dataType: "json",
+        data: { "json": JSON.stringify(json) },
+        success: function (data) {
+            if (data.success) {
+                if (data.success == true) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'You signed up for lunch!',
+                        showConfirmButton: false,
+                        timer: 20000,
+                    })
+                    window.location.href = "/Home/Lunch";
+                }
+            }
+        },
+        error: function () {
+            Swal.fire({
+                title: 'LUNCH NOT SUBMITTED',
+                imageUrl: 'https://securitygladiators.com/wp-content/uploads/2020/10/a-system-message-addressing-a-critital-error.jpg',
+                imageWidth: 1400,
+                imageHeight: 500,
+                imageAlt: 'Custom image',
+                background: '#FF0000',
+                width: 1200,
+                backdrop: '#FF0000',
+                color: '#f7f7f7',
+            })
+        }
+    });
+});
+
 //Lunch Off the floor
 $(document).on("click", ".lunchSent", function () {
     $.ajax({
@@ -262,12 +455,13 @@ $(document).on("click", ".lunchSent", function () {
         dataType: 'json',
         data: { "Id": $(this).closest("tr").find(".hiddenLunchID").val() },
         success: function () {
-            RefreshDropDownsPartial();
+            $(" #headerRefresh ").load(window.location.href + " #headerRefresh ");
+            $(" #DropDownsPartialDiv ").load(window.location.href + " #DropDownsPartialDiv ");
         },
     });
 });
 
-// Break Back on the floor
+// Lunch Back on the floor
 $(document).on("click", ".cancelLunchSent", function () {
     Swal.fire({
         title: 'Are you sure?',
@@ -294,7 +488,8 @@ $(document).on("click", ".cancelLunchSent", function () {
                             timer: 0850,
 
                         })
-                        RefreshDropDownsPartial();
+                        $(" #headerRefresh ").load(window.location.href + " #headerRefresh ");
+                        $(" #DropDownsPartialDiv ").load(window.location.href + " #DropDownsPartialDiv ");
                     }
                     else {
                         Swal.fire({
@@ -340,7 +535,8 @@ $(document).on("click", ".empNameLunch", function () {
                             timer: 0850,
 
                         })
-                        RefreshDropDownsPartial();
+                        $(" #headerRefresh ").load(window.location.href + " #headerRefresh ");
+                        $(" #DropDownsPartialDiv ").load(window.location.href + " #DropDownsPartialDiv ");
                     }
                     else {
                         Swal.fire({

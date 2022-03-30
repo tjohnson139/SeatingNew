@@ -1,9 +1,9 @@
 ﻿@model Seating.ViewModels.ListsVM
 
-<form asp-controller="Home" asp-action="CreateBreak" class="DthdropdownGroup ml-3">
-    <div class="btn-group" style="margin-left:-1rem">
-        <select class="form-group dropdownStyling btn-sm dropdown-toggle d-inline-block btn-outline-light" style="width: 7.4em;" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="EmployeeId" asp-for="EmployeeId">
-            <option>Dispatcher</option>
+<form>
+    <div class="btn-group">
+        <select class="form-group btn-sm dropdown-toggle btn-outline-light dropdownStyling" style="width: 7.4em;" id="EmpIdBreak">
+            <option disabled selected>Dispatcher</option>
             @foreach (var item in Model.Employees)
             {
                 <option class="dropdown-item pr-1 form-control" value="@item.Id">@item.DisplayName</option>
@@ -12,13 +12,13 @@
     </div>
 
     <div class="btn-group">
-        <select class="form-group dropdownStyling btn-sm dropdown-toggle d-inline-block btn-outline-light" style="width: 7.3em" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="EmpPosition" asp-for="EmpPosition">
-            <option>Position</option>
+        <select class="form-group btn-sm btn-outline-light dropdown-toggle dropdownStyling" style="width: 7.3em;" id="EmployeePositionBreak">
+            <option disabled selected>Position</option>
             @foreach (var item in Model.Positions)
             {
                 <option class="dropdown-item pr-1" value="@item.Id">@item.PositionName</option>
             }
         </select>
     </div>
-    <button type="submit" class="btn btn-sm btn-block dropdownStyling" id="break-submit" style="margin-left: -1rem; width:15rem;">Submit</button>
+    <button type="submit" class="btn btn-sm btn-block btn-outline-light dropdownStyling" id="break_submit" style="margin-left: -.06rem">Submit</button>
 </form>

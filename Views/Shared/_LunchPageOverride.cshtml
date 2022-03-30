@@ -11,8 +11,8 @@
 
 <form asp-controller="Home" asp-action="CreateLunchPage" class="DthdropdownGroup ml-3">
     <div class="btn-group" style="margin-left:.3rem;">
-        <select class="form-group btn- btn-sm dropdown-toggle d-inline-block pr-1 btn-outline-light" style="color:black; font-family: 'Roboto', sans-serif; font-size: 16px; width: 8.5em; padding-left: .2rem; background-color: whitesmoke" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="EmployeeId" asp-for="EmployeeId">
-            <option>Dispatcher</option>
+        <select class="form-group btn- btn-sm dropdown-toggle d-inline-block pr-1 btn-outline-light" style="color:black; font-family: 'Roboto', sans-serif; font-size: 16px; width: 8.5em; padding-left: .2rem; background-color: whitesmoke" id="EmpIdLunch">
+            <option disabled selected>Dispatcher</option>
             @foreach (var item in Model.Employees)
             {
                 <option class="dropdown-item pr-1 form-control" value="@item.Id">@item.DisplayName</option>
@@ -21,8 +21,8 @@
     </div>
 
     <div class="btn-group">
-        <select class="form-group btn-sm dropdown-toggle d-inline-block btn-outline-light" style="color:black; font-family: 'Roboto', sans-serif; width: 8.5em; font-size: 16px; background-color: whitesmoke" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="EmpPosition" asp-for="EmpPosition">
-            <option>Position</option>
+        <select class="form-group btn-sm dropdown-toggle d-inline-block btn-outline-light" style="color:black; font-family: 'Roboto', sans-serif; width: 8.5em; font-size: 16px; background-color: whitesmoke" id="EmployeePositionLunch">
+            <option disabled selected>Position</option>
             @foreach (var item in Model.Positions)
             {
                 <option value="@item.Id">@item.PositionName</option>
@@ -31,8 +31,8 @@
     </div>
 
     <div class="btn-group">
-        <select class="form-group btn-sm d-inline-block btn-outline-light" style="color:black; margin-top: -.5rem; width: 12.5em; font-size: 16px; font-family: 'Roboto', sans-serif; text-align:center; background-color: whitesmoke;" type="button" aria-haspopup="true" aria-expanded="false" asp-for="LunchTime">
-            <option style="text-align:center">Lunch Time</option>
+        <select class="form-group btn-sm d-inline-block btn-outline-light" id="lunchStartTime" style="color:black; margin-top: -.5rem; width: 12.5em; font-size: 16px; font-family: 'Roboto', sans-serif; text-align:center; background-color: whitesmoke;">
+            <option disabled selected style="text-align:center">Lunch Time</option>
             @foreach (var item in timesOver)
             {
                 <option vale=@item>@item</option>
@@ -41,11 +41,11 @@
     </div>
 
     <div class="btn-group" style="margin-top:-2rem;">
-        45<input style="margin-left:.2rem; margin-top: .4rem;" type="checkbox" id="flexCheckChecked" asp-for="LongerLunch">
+        45<input data-val="true" value="true" style="margin-left:.2rem; margin-top: .4rem;" type="checkbox" id="flexCheckChecked" class="lunch_45">
     </div>
         <div class="btn-group" style="margin-top:-2rem;">
-        Dbl<input style="margin-left:.2rem; margin-top: .4rem;" type="checkbox" id="flexCheckChecked" asp-for="DblLunch">
+        Dbl<input data-val="true" value="true" style="margin-left:.2rem; margin-top: .4rem;" type="checkbox" id="flexCheckChecked" class="lunch_dbl">
     </div>
 
-    <button type="submit" class="dropdownStyling btn btn-sm btn-block btn-outline-light" style="margin-left:-.5rem; margin-bottom: .5rem; width: 19rem; margin-top:-.5rem">Submit</button>
+    <button type="submit" class="dropdownStyling btn btn-sm btn-block btn-outline-light" id="override_submit" style="margin-left:-.5rem; margin-bottom: .5rem; width: 19rem; margin-top:-.5rem">Submit</button>
 </form>

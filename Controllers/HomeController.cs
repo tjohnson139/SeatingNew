@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 using Seating.Models;
 using Seating.ViewModels;
 using System;
@@ -942,30 +943,39 @@ namespace Seating.Controllers
         /////////////////////////////////////////////Dth Section
 
         //Create//
-        public IActionResult CreateDth()
-        {
-            ViewData["EmpPosition"] = new SelectList(_context.Positions, "Id", "Id");
-            ViewData["EmployeeId"] = new SelectList(_context.Employees, "Id", "DisplayName");
-            return View();
-        }
-
-        // POST: Dths/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> CreateDth([Bind("Id,TimeEntered,TimeCleared,EmpSent,EmployeeId,EmpPosition,RlfPosition")] Dth dth)
+        public async Task<IActionResult> CreateDth(string json)
         {
-            if (ModelState.IsValid)
+            Dth newDth = new Dth();
+            int EmployeeId = 0;
+            int EmpPosition = 0;
+
+            if (!string.IsNullOrEmpty(json))
             {
-                dth.TimeEntered = DateTime.Now;
-                _context.Add(dth);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                var jsonData = JsonConvert.DeserializeObject<dynamic>(json);
+                EmployeeId = Convert.ToInt32(jsonData.EmployeeId);
+                EmpPosition = Convert.ToInt32(jsonData.EmpPosition);
+
+                newDth.EmployeeId = EmployeeId;
+                newDth.EmpPosition = EmpPosition;
+
+                if (ModelState.IsValid)
+                {
+                    newDth.TimeEntered = DateTime.Now;
+                    _context.Add(newDth);
+                    await _context.SaveChangesAsync();
+                    return Json(new { success = true, });
+                }
+
+                else
+                {
+                    return Json(new { success = false });
+                }
             }
-            ViewData["EmpPosition"] = new SelectList(_context.Positions, "Id", "Id", dth.EmpPosition);
-            ViewData["EmployeeId"] = new SelectList(_context.Employees, "Id", "DisplayName", dth.EmployeeId);
-            return View(dth);
+            else
+            {
+                return Json(new { success = false });
+            }
         }
 
         //Send off the floor
@@ -1026,19 +1036,38 @@ namespace Seating.Controllers
 
         //Create//
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> CreateBreak([Bind("Id,TimeEntered,TimeCleared,EmpSent,EmployeeId,EmpPosition,RlfPosition")] Break @break)
+        public async Task<IActionResult> CreateBreak(string json)
         {
-            if (ModelState.IsValid)
+            Break newBreak = new Break();
+            int EmployeeId = 0;
+            int EmpPosition = 0;
+
+            if (!string.IsNullOrEmpty(json))
             {
-                @break.TimeEntered = DateTime.Now;
-                _context.Add(@break);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                var jsonData = JsonConvert.DeserializeObject<dynamic>(json);
+                EmployeeId = Convert.ToInt32(jsonData.EmployeeId);
+                EmpPosition = Convert.ToInt32(jsonData.EmpPosition);
+
+                newBreak.EmployeeId = EmployeeId;
+                newBreak.EmpPosition = EmpPosition;
+
+                if (ModelState.IsValid)
+                {
+                    newBreak.TimeEntered = DateTime.Now;
+                    _context.Add(newBreak);
+                    await _context.SaveChangesAsync();
+                    return Json(new { success = true, });
+                }
+
+                else
+                {
+                    return Json(new { success = false });
+                }
             }
-            ViewData["EmpPosition"] = new SelectList(_context.Positions, "Id", "Id", @break.EmpPosition);
-            ViewData["EmployeeId"] = new SelectList(_context.Employees, "Id", "DisplayName", @break.EmployeeId);
-            return View(@break);
+            else
+            {
+                return Json(new { success = false });
+            }
         }
 
         //Send off the floor
@@ -1096,25 +1125,92 @@ namespace Seating.Controllers
         }
 
         ////////////////////////////////////////Lunch Section
-
-        // POST: Lunches/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        
+        //Create Lunch front and lunch pages
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> CreateLunchMainPage([Bind("Id,TimeEntered,TimeCleared,EmpSent,LunchTime,EmployeeId,ReasonId,EmpPosition,RlfPosition,LongerLunch,DblLunch")] Lunch lunch)
+        public async Task<IActionResult> CreateLunch(string json)
         {
-            if (ModelState.IsValid)
+            Lunch newLunch = new Lunch();
+            int EmployeeId = 0;
+            int EmpPosition = 0;
+            var LunchTime = "";
+            var LongerLunch = "";
+
+            if (!string.IsNullOrEmpty(json))
             {
-                lunch.TimeEntered = DateTime.Now;
-                _context.Add(lunch);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                var jsonData = JsonConvert.DeserializeObject<dynamic>(json);
+                EmployeeId = Convert.ToInt32(jsonData.EmployeeId);
+                EmpPosition = Convert.ToInt32(jsonData.EmpPosition);
+                LunchTime = jsonData.LunchTime;
+                LongerLunch = jsonData.LongerLunch;
+
+                newLunch.EmployeeId = EmployeeId;
+                newLunch.EmpPosition = EmpPosition;
+                newLunch.LunchTime = Convert.ToDateTime(LunchTime);
+                newLunch.LongerLunch = Convert.ToBoolean(LongerLunch);
+
+                if (ModelState.IsValid)
+                {
+                    newLunch.TimeEntered = DateTime.Now;
+                    _context.Add(newLunch);
+                    await _context.SaveChangesAsync();
+                    return Json(new { success = true, });
+                }
+
+                else
+                {
+                    return Json(new { success = false });
+                }
             }
-            ViewData["EmpPosition"] = new SelectList(_context.Positions, "Id", "Id", lunch.EmpPosition);
-            ViewData["EmployeeId"] = new SelectList(_context.Employees, "Id", "DisplayName", lunch.EmployeeId);
-            ViewData["ReasonId"] = new SelectList(_context.Reasons, "Id", "ReasonName", lunch.ReasonId);
-            return View(lunch);
+            else
+            {
+                return Json(new { success = false });
+            }
+        }
+
+        //Create Lunch front and lunch pages
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        public async Task<IActionResult> CreateOverrideLunch(string json)
+        {
+            Lunch newLunch = new Lunch();
+            int EmployeeId = 0;
+            int EmpPosition = 0;
+            var LunchTime = "";
+            var LongerLunch = "";
+            var DblLunch = "";
+
+            if (!string.IsNullOrEmpty(json))
+            {
+                var jsonData = JsonConvert.DeserializeObject<dynamic>(json);
+                EmployeeId = Convert.ToInt32(jsonData.EmployeeId);
+                EmpPosition = Convert.ToInt32(jsonData.EmpPosition);
+                LunchTime = jsonData.LunchTime;
+                LongerLunch = jsonData.LongerLunch;
+                DblLunch = jsonData.DblLunch;
+
+                newLunch.EmployeeId = EmployeeId;
+                newLunch.EmpPosition = EmpPosition;
+                newLunch.LunchTime = Convert.ToDateTime(LunchTime);
+                newLunch.LongerLunch = Convert.ToBoolean(LongerLunch);
+                newLunch.DblLunch = Convert.ToBoolean(DblLunch);
+
+                if (ModelState.IsValid)
+                {
+                    newLunch.TimeEntered = DateTime.Now;
+                    _context.Add(newLunch);
+                    await _context.SaveChangesAsync();
+                    return Json(new { success = true, });
+                }
+
+                else
+                {
+                    return Json(new { success = false });
+                }
+            }
+            else
+            {
+                return Json(new { success = false });
+            }
         }
 
         //Send off the floor
