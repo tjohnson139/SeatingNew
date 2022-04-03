@@ -1,31 +1,5 @@
 ﻿@model Seating.ViewModels.ListsVM
 
-@*Sets off an alert tone when someone goes on the list*@
-<div id="AlertSound">
-    @foreach (var item in Model.Dths)
-    {
-        if (item.EmpSent != true)
-        {
-            if (item.TimeEntered.AddSeconds(4) > DateTime.Now)
-            {
-                <iframe src="~/Content/Audio/Alert.mp3" allow="autoplay" style="display:none" id="iframeAudio">
-                </iframe>
-            }
-        }
-    }
-    @foreach (var item in Model.Breaks)
-    {
-        if (item.EmpSent != true)
-        {
-            if (item.TimeEntered.AddSeconds(4) > DateTime.Now)
-            {
-                <iframe src="~/Content/Audio/Alert.mp3" allow="autoplay" style="display:none" id="iframeAudio">
-                </iframe>
-            }
-        }
-    }
-</div>
-
 @*//Start DTH / Break / Lunch tables*@
 <div class="d-inline-block bg-transparent" style="width:53rem">
     <div class="card border-0 d-inline-block mr-3" style="width: 15rem; height:fit-content">
@@ -51,8 +25,8 @@
                                 </td>
                             </tr>
                         }
-                        @*////EMPLOYEE NOT SENT *****BEFORE***** ONE MINUTE////*@
-                        else if (item.EmpSent != true && item.TimeEntered.AddMinutes(1) > DateTime.Now)
+                        @*////EMPLOYEE NOT SENT *****BEFORE***** 15 SECONDS////*@
+                        else if (item.EmpSent != true && item.TimeEntered.AddSeconds(15) > DateTime.Now)
                         {
                             <tr class="flashTime" style="font-size: large">
                                 <td class="w-75 h-25 p-0">
@@ -65,7 +39,7 @@
                             </tr>
                             
                         }
-                        @*////EMPLOYEE NOT SENT AFTER ONE MINUTE////*@
+                        @*////EMPLOYEE NOT SENT AFTER 15 SECONDS////*@
                         else
                         {
                             <tr>
@@ -111,8 +85,8 @@
                             </tr>
                             
                         }
-                        @*////EMPLOYEE NOT SENT *****BEFORE***** ONE MINUTE////*@
-                        else if (item.EmpSent != true && item.TimeEntered.AddMinutes(1) > DateTime.Now)
+                        @*////EMPLOYEE NOT SENT *****BEFORE***** 15 SECONDS////*@
+                        else if (item.EmpSent != true && item.TimeEntered.AddSeconds(15) > DateTime.Now)
                         {
                             <tr class="flashTime" style="font-size: large">
                                 <td class="w-75 h-25 p-0">
@@ -125,7 +99,7 @@
                             </tr>
                             
                         }
-                        @*////EMPLOYEE NOT SENT AFTER ONE MINUTE////*@
+                        @*////EMPLOYEE NOT SENT AFTER 15 SECONDS////*@
                         else
                         {
                             <tr>
@@ -462,7 +436,7 @@
             </table>
         </div>
         <div>
-            @await Html.PartialAsync("../Shared/_LunchMainPageDropdowns")
+            @await Html.PartialAsync("../Shared/_LunchHomePageDropdowns")
         </div>
     </div>
 </div>

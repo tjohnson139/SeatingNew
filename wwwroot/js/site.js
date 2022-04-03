@@ -3,8 +3,26 @@
 
 // Write your JavaScript code.
 
-//Refresh tables at intervals
+///Variable related to alert sounds
+var alertOn = true;
 
+////Alert sounds off and on with switch
+$(document).ready(function () {
+    $(" #bluetooth ").data('notenabled', false);//enabled assumption
+    $(" #bluetooth ").click(function () {
+        var currentState = $(this).data('notenabled');
+        console.log(currentState)
+        if (currentState) {
+            alertOn = true;
+        } else {
+            alertOn = false;
+        }
+        $(this).data('notenabled', !currentState);
+    });
+});
+
+
+//Refresh tables at intervals
 function RefreshDropDownsPartial() {
     $.ajax({
         success: function () {
@@ -12,6 +30,9 @@ function RefreshDropDownsPartial() {
             $(" .dthRefresh ").load(window.location.href + " .dthRefresh ");
             $(" .breakRefresh ").load(window.location.href + " .breakRefresh ");
             $(" .lunchRefresh ").load(window.location.href + " .lunchRefresh ");
+            if (alertOn) {
+                $(" #AlertSound ").load(window.location.href + " #AlertSound ");
+            }
         },
         error: function () {
 
@@ -22,7 +43,6 @@ function RefreshDropDownsPartial() {
 window.setInterval(function () {
     RefreshDropDownsPartial();
 }, 4000);
-
 
 ////////////////////Dth Section////////////////////////
 
@@ -43,7 +63,7 @@ $(document).on("click", "#dth_submit", function (e) {
         data: { "json": JSON.stringify(json) },
         success: function (data) {
             if (data.success) {
-                $(" #headerRefresh ").load(window.location.href + " #headerRefresh ");
+                $(" #headerRefresh ").load(window.location.href + " #headerRefresh ");                
                 $(" #DropDownsPartialDiv ").load(window.location.href + " #DropDownsPartialDiv ");
             }
             else
@@ -336,8 +356,8 @@ $(document).on("click", "#lunch_submit", function (e) {
         error: function () {
             Swal.fire({
                 title: 'LUNCH NOT SUBMITTED',
-                imageUrl: 'https://securitygladiators.com/wp-content/uploads/2020/10/a-system-message-addressing-a-critital-error.jpg',
-                imageWidth: 1400,
+                imageUrl: 'https://media1.razorplanet.com/share/512056-7346/siteImages/Text%20Msg%20Images/no-lunch.jpg',
+                imageWidth: 500,
                 imageHeight: 500,
                 imageAlt: 'Custom image',
                 background: '#FF0000',
@@ -349,13 +369,13 @@ $(document).on("click", "#lunch_submit", function (e) {
     });
 });
 
-//Create Lunch Lunch Page
+//Create Lunch - Lunch Page
 $(document).on("click", "#lunch_submit_main", function (e) {
     e.preventDefault();
-    var EmployeeId = Number($("#EmpIdLunch").val());
-    var EmpPosition = Number($("#EmployeePositionLunch").val());
-    var LunchTime = $("#lunchStartTime").val();
-    var LongerLunch = $('.lunch_45:checkbox:checked').val();
+    var EmployeeId = Number($("#EmpIdMainLunch").val());
+    var EmpPosition = Number($("#EmployeeMainPositionLunch").val());
+    var LunchTime = $("#lunchMainStartTime").val();
+    var LongerLunch = $('.lunch_main_45:checkbox:checked').val();
     var json = {
         EmployeeId: EmployeeId,
         EmpPosition: EmpPosition,
@@ -384,8 +404,8 @@ $(document).on("click", "#lunch_submit_main", function (e) {
         error: function () {
             Swal.fire({
                 title: 'LUNCH NOT SUBMITTED',
-                imageUrl: 'https://securitygladiators.com/wp-content/uploads/2020/10/a-system-message-addressing-a-critital-error.jpg',
-                imageWidth: 1400,
+                imageUrl: 'https://media1.razorplanet.com/share/512056-7346/siteImages/Text%20Msg%20Images/no-lunch.jpg',
+                imageWidth: 500,
                 imageHeight: 500,
                 imageAlt: 'Custom image',
                 background: '#FF0000',
@@ -420,22 +440,20 @@ $(document).on("click", "#override_submit", function (e) {
         data: { "json": JSON.stringify(json) },
         success: function (data) {
             if (data.success) {
-                if (data.success == true) {
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'You signed up for lunch!',
-                        showConfirmButton: false,
-                        timer: 20000,
-                    })
-                    window.location.href = "/Home/Lunch";
-                }
+                Swal.fire({
+                    icon: 'success',
+                    title: 'You signed up for lunch!',
+                    showConfirmButton: false,
+                    timer: 20000,
+                })
+                window.location.href = "/Home/Lunch";
             }
         },
         error: function () {
             Swal.fire({
                 title: 'LUNCH NOT SUBMITTED',
-                imageUrl: 'https://securitygladiators.com/wp-content/uploads/2020/10/a-system-message-addressing-a-critital-error.jpg',
-                imageWidth: 1400,
+                imageUrl: 'https://media1.razorplanet.com/share/512056-7346/siteImages/Text%20Msg%20Images/no-lunch.jpg',
+                imageWidth: 500,
                 imageHeight: 500,
                 imageAlt: 'Custom image',
                 background: '#FF0000',
@@ -456,6 +474,7 @@ $(document).on("click", ".lunchSent", function () {
         data: { "Id": $(this).closest("tr").find(".hiddenLunchID").val() },
         success: function () {
             $(" #headerRefresh ").load(window.location.href + " #headerRefresh ");
+            $(" #AlertSound ").load(window.location.href + " #AlertSound ");
             $(" #DropDownsPartialDiv ").load(window.location.href + " #DropDownsPartialDiv ");
         },
     });
@@ -508,7 +527,7 @@ $(document).on("click", ".cancelLunchSent", function () {
     })
 });
 
-//Lunch Removal
+//Lunch Removal Home
 $(document).on("click", ".empNameLunch", function () {
     Swal.fire({
         title: 'Are you sure?',
@@ -537,6 +556,52 @@ $(document).on("click", ".empNameLunch", function () {
                         })
                         $(" #headerRefresh ").load(window.location.href + " #headerRefresh ");
                         $(" #DropDownsPartialDiv ").load(window.location.href + " #DropDownsPartialDiv ");
+                    }
+                    else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Failure!',
+                            showConfirmButton: false,
+                            timer: 2000,
+                        })
+                    }
+                },
+                error: function () {
+                    alert("Something went wrong.");
+                }
+            });
+        };
+    });
+});
+
+//Lunch Removal Home
+$(document).on("click", ".empNameLunchMain", function () {
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "Remove from the Lunch list?",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes'
+    }).then((result) => {
+        if (result.value) {
+            $.ajax({
+                type: "Post",
+                url: "/Home/DeleteLunch",
+                dataType: 'json',
+                data: { "Id": $(this).closest("tr").find(".hiddenLunchID").val() },
+                success: function (data) {
+
+                    if (data.success == true) {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Successfully Removed!',
+                            showConfirmButton: false,
+                            timer: 0850,
+
+                        })
+                        window.location.href = "/Home/Lunch";
                     }
                     else {
                         Swal.fire({

@@ -1,0 +1,27 @@
+﻿@model Seating.ViewModels.ListsVM
+
+@*Sets off an alert tone when someone goes on the list*@
+<div id="alertControls">
+    @foreach (var item in Model.Dths)
+    {
+        if (item.EmpSent != true)
+        {
+            if (item.TimeEntered.AddSeconds(4) > DateTime.Now)
+            {
+                <iframe src="~/Content/Audio/Alert.mp3" allow="autoplay" style="display:none" id="iframeAudio">
+                </iframe>
+            }
+        }
+    }
+    @foreach (var item in Model.Breaks)
+    {
+        if (item.EmpSent != true)
+        {
+            if (item.TimeEntered.AddSeconds(4) > DateTime.Now)
+            {
+                <iframe src="~/Content/Audio/Alert.mp3" allow="autoplay" style="display:none" id="iframeAudio">
+                </iframe>
+            }
+        }
+    }
+</div>
