@@ -57,6 +57,8 @@ namespace Seating
         {
             if (ModelState.IsValid)
             {
+                Employee employeeModel = new Employee();
+                employeeModel.IsEmployed = true;
                 _context.Add(employee);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -138,8 +140,8 @@ namespace Seating
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var employee = await _context.Employees.FindAsync(id);
-            _context.Employees.Remove(employee);
+            Employee employee = _context.Employees.Find(id);
+            employee.IsEmployed = false;
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }

@@ -13,7 +13,7 @@
                         <tr>
                             <td class="w-75 h-25 p-0">
                                 <input type="hidden" class="hiddenLunchID" value="@item.Id" />
-                                <a href="Javascript:;" class="empNameLunchMain" style="font-size: large; color: black">@item.Employee.DisplayName-@item.Employee.DispatchNumber</a>
+                                <a href="Javascript:;" class="empNameLunchMain" style="font-size: large; color: black">@item.Employee.DisplayName-@item.Employee.DispatchNumber.ToString("D2")</a>
                             <td class="h-25 pl-2 pr-2 pb-0 pt-0" style="font-size:large; color:black">@item.EmpPositionNavigation.PositionName</td>
                             <td class="h-25 pl-2 pr-2 pb-0 pt-0" style="font-size:large">@item.LunchTime.ToString("HH:mm")</td>
                         </tr>                                
@@ -24,7 +24,7 @@
                         <tr>
                             <td class="w-75 h-25 p-0">
                                 <input type="hidden" class="hiddenLunchID" value="@item.Id" />
-                                <a href="Javascript:;" class="empNameLunchMain" style="font-size: large; color: black">@item.Employee.DisplayName-@item.Employee.DispatchNumber<div style="font-weight: bold; display: inline-block; font-size: smaller">&nbsp;-45</div></a>
+                                <a href="Javascript:;" class="empNameLunchMain" style="font-size: large; color: black">@item.Employee.DisplayName-@item.Employee.DispatchNumber.ToString("D2")<div style="font-weight: bold; display: inline-block; font-size: smaller">&nbsp;-45</div></a>
                             <td class="h-25 pl-2 pr-2 pb-0 pt-0" style="font-size: large; color: black">@item.EmpPositionNavigation.PositionName</td>
                             <td class="h-25 pl-2 pr-2 pb-0 pt-0" style="font-size:large">@item.LunchTime.ToString("HH:mm")</td>
                         </tr>                                
@@ -35,7 +35,7 @@
                         <tr style="background-color:yellow">
                             <td class="w-75 h-25 p-0">
                                 <input type="hidden" class="hiddenLunchID" value="@item.Id" />
-                                <a href="Javascript:;" class="empNameLunchMain" style="font-size: large; color: black">@item.Employee.DisplayName-@item.Employee.DispatchNumber<div style="font-weight:bold; display:inline-block; font-size:smaller">&nbsp;-Dbl</div></a>
+                                <a href="Javascript:;" class="empNameLunchMain" style="font-size: large; color: black">@item.Employee.DisplayName-@item.Employee.DispatchNumber.ToString("D2")<div style="font-weight:bold; display:inline-block; font-size:smaller">&nbsp;-Dbl</div></a>
                             <td class="h-25 pl-2 pr-2 pb-0 pt-0" style="font-size: large; color: black">@item.EmpPositionNavigation.PositionName</td>
                             <td class="h-25 pl-2 pr-2 pb-0 pt-0" style="font-size:large">@item.LunchTime.ToString("HH:mm")</td>
                         </tr>                                
@@ -46,7 +46,7 @@
                         <tr style="background-color:yellow">
                             <td class="w-75 h-25 p-0">
                                 <input type="hidden" class="hiddenLunchID" value="@item.Id" />
-                                <a href="Javascript:;" class="empNameLunchMain" style="font-size: large; color: black">@item.Employee.DisplayName-@item.Employee.DispatchNumber<div style="font-weight:bold; display:inline-block; font-size:smaller">&nbsp;-45-Dbl</div></a>
+                                <a href="Javascript:;" class="empNameLunchMain" style="font-size: large; color: black">@item.Employee.DisplayName-@item.Employee.DispatchNumber.ToString("D2")<div style="font-weight:bold; display:inline-block; font-size:smaller">&nbsp;-45-Dbl</div></a>
                             <td class="h-25 pl-2 pr-2 pb-0 pt-0" style="font-size: large; color: black">@item.EmpPositionNavigation.PositionName</td>
                             <td class="h-25 pl-2 pr-2 pb-0 pt-0" style="font-size:large">@item.LunchTime.ToString("HH:mm")</td>
                         </tr>                                

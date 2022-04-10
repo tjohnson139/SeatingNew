@@ -182,11 +182,13 @@ namespace Seating.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("PositionName")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<bool>("Inactive")
                         .HasColumnType("bit");
+
+                    b.Property<string>("PositionName")
+                        .IsRequired()
+                        .HasMaxLength(7)
+                        .HasColumnType("nvarchar(7)");
 
                     b.HasKey("Id");
 

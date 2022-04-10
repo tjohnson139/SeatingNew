@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 #nullable disable
 
@@ -18,6 +19,8 @@ namespace Seating.Models
         }
 
         public int Id { get; set; }
+        [Required]
+        [MaxLength(7, ErrorMessage = "No more than 7 characters")]
         public string PositionName { get; set; }
         public bool Inactive { get; set; }
 

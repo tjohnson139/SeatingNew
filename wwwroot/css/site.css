@@ -194,7 +194,3 @@ body {
     color: lightcoral;
     text-decoration: line-through;
 }
-
-.loginBackgroundImage {
-    background-image: url(../Content/Photos/loginBackground.jpg);
-}
