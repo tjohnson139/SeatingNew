@@ -747,7 +747,7 @@ namespace Seating
                 times.Add(new DateTime(dt.Year, dt.Month, dt.Day, 10, 00, 0).AddDays(1).ToString("M/d/yy HH:mm"));
             }
 
-            if (dt.Hour == 20 || dt.Hour == 21 || dt.Hour == 22 || dt.Hour == 23)
+            if (dt.Hour == 23)
 
             {
                 times.Add(new DateTime(dt.Year, dt.Month, dt.Day, 23, 00, 0).ToString("M/d/yy HH:mm"));
@@ -773,6 +773,8 @@ namespace Seating
                 times.Add(new DateTime(dt.Year, dt.Month, dt.Day, 09, 00, 0).AddDays(1).ToString("M/d/yy HH:mm"));
                 times.Add(new DateTime(dt.Year, dt.Month, dt.Day, 09, 30, 0).AddDays(1).ToString("M/d/yy HH:mm"));
                 times.Add(new DateTime(dt.Year, dt.Month, dt.Day, 10, 00, 0).AddDays(1).ToString("M/d/yy HH:mm"));
+                times.Add(new DateTime(dt.Year, dt.Month, dt.Day, 10, 30, 0).AddDays(1).ToString("M/d/yy HH:mm"));
+                times.Add(new DateTime(dt.Year, dt.Month, dt.Day, 11, 00, 0).AddDays(1).ToString("M/d/yy HH:mm"));
             }
 
 

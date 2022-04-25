@@ -43,6 +43,9 @@ namespace Seating.Controllers
                 fireCounted = true;
             }
 
+            ViewBag.dthHeader = tables.Dths.Where(n => n.EmpSent == false).Count();
+            ViewData["breakHeader"] = tables.Breaks.Where(n => n.EmpSent == false).Count();
+
             ViewData["offFloor"] = tables.Breaks.Where(n => n.TimeCleared == null && n.EmpSent == true).Count() + tables.Dths.Where(n => n.EmpSent == true && n.TimeCleared == null).Count() + tables.Lunches.Where(n => n.EmpSent == true && n.TimeCleared == null && (fireCounted.Equals(true) || (fireCounted.Equals(false) && n.EmpPositionNavigation.PositionName != "FR" && n.EmpPositionNavigation.PositionName != "FL" && n.EmpPositionNavigation.PositionName != "FC"))).Count();
 
             ViewBag.fireCounted = fireCounted;

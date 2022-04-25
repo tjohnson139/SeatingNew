@@ -9,35 +9,45 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>Index</title>
+    <title>WCCCA Seating Chart</title>
+    <link rel="icon" href="~/Content/Photos/WCCCA.jpg"
+        type="image/x-icon">
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
 </head>
 <body>
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
+    <div style="margin-left:40rem;">
+        <span style="font-size:60px;">Positions Management</span>
+        <br />
+        <div  style="margin-left:14rem; margin-top:1rem;">
+            <a asp-action="Create" style="font-size:20px">Add New Positon</a>
+        </div>        
+    </div>
+    <table class="table table-striped table-borderless" style="font-size:15px; margin-top:2rem; width:15rem; margin-left:52rem;">
+      <thead>
         <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.PositionName)
-            </th>
-            <th></th>
+          <th scope="col">Position</th>
         </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.PositionName)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+      </thead>
+      <tbody>
+            @foreach(var item in Model.OrderBy(x => x.PositionName))
+            {
+                if (item.Inactive == false)
+                {
+                    <tr>
+                        <td>
+                            @item.PositionName
+                        </td>
+                        <td>
+                            <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                            <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                        </td>
+                    </tr>                    
+                }                
+            }
+            <tr>
+      </tbody>
+    </table>
 </body>
 </html>

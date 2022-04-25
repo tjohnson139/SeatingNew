@@ -138,8 +138,8 @@ namespace Seating
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var position = await _context.Positions.FindAsync(id);
-            _context.Positions.Remove(position);
+            Position positions = _context.Positions.Find(id);
+            positions.Inactive = true;
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
